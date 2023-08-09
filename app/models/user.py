@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from .posts import Post
 
 
 class User(db.Model, UserMixin):
@@ -11,8 +12,14 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
+    firstname = db.Column(db.String(20), nullable=False)
+    lastname = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+
+    user_posts = db.relationship("Post", backref="user", cascade="all, delete-orphan")
+
+    user_comments = db.relationship("Comment", backref="user", cascade="all, delete-orphan")
 
     @property
     def password(self):
@@ -29,5 +36,18 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
+            'firstname': self.firstname,
+            'lastname': self.lastname,
             'email': self.email
+        }
+
+    def all_user_info_to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'firstname': self.firstname,
+            'lastname': self.lastname,
+            'email': self.email,
+            "user_posts": [post.to_dict() for post in self.user_posts],
+            "user_comments": [comment.to_dict() for comment in self.user_comments]
         }
