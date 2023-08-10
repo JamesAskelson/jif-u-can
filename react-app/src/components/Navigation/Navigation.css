@@ -5,3 +5,27 @@
 .hidden {
   display: none;
 }
+
+#nav-links-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-dropdown {
+  padding: 1em;
+  background-color: white;
+  margin-top: 1em;
+  position: absolute;
+  right: 0px;
+  top: 40px;
+  border: 1px solid rgb(255, 255, 255);
+}
+
+#dropdown-buttons{
+  display: flex;
+  flex-direction: column;
+}
+
+#nav-links-right{
+  display: flex;
+}

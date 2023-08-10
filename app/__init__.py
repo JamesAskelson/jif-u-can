@@ -40,30 +40,30 @@ CORS(app)
 
 # Test routes below to check data via postman ################################
 
-# @app.route("/users")
-# def testusers():
-#     users = User.query.all()
-#     return [user.all_user_info_to_dict() for user in users]
+@app.route("/users")
+def testusers():
+    users = User.query.all()
+    return [user.all_user_info_to_dict() for user in users]
 
-# @app.route("/posts")
-# def testposts():
-#     posts = Post.query.all()
-#     return [post.to_dict() for post in posts]
+@app.route("/posts")
+def testposts():
+    posts = Post.query.all()
+    return [post.to_dict() for post in posts]
 
-# @app.route("/postgraphics")
-# def testpostmedia():
-#     postmedia = PostGraphic.query.all()
-#     return [media.to_dict() for media in postmedia]
+@app.route("/postgraphics")
+def testpostmedia():
+    postmedia = PostGraphic.query.all()
+    return [media.to_dict() for media in postmedia]
 
-# @app.route("/comments")
-# def testcomments():
-#     comments = Comment.query.all()
-#     return [comment.to_dict() for comment in comments]
+@app.route("/comments")
+def testcomments():
+    comments = Comment.query.all()
+    return [comment.to_dict() for comment in comments]
 
-# @app.route("/tags")
-# def testtags():
-#     tags = Tag.query.all()
-#     return [tag.to_dict() for tag in tags]
+@app.route("/tags")
+def testtags():
+    tags = Tag.query.all()
+    return [tag.to_dict() for tag in tags]
 
 ##############################################################################
 

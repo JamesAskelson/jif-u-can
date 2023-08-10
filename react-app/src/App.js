@@ -6,6 +6,8 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
+import PostDetails from "./components/PostDetails";
+import UserProfile from "./components/UserProfile";
 
 
 function App() {
@@ -22,6 +24,12 @@ function App() {
         <Switch>
           <Route exact path="/">
             <LandingPage />
+          </Route>
+          <Route exact path='/posts/:id'>
+            <PostDetails />
+          </Route>
+          <Route exact path='/users/profile'>
+            <UserProfile />
           </Route>
           <Route path="/login">
             <LoginFormPage />
