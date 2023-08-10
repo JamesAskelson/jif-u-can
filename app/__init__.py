@@ -4,9 +4,11 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-from .models import db, User
+from .models import db, User, Post, PostGraphic, Comment, Tag
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.post_routes import posts
+from .api.postgraphic_routes import posts_graphics
 from .seeds import seed_commands
 from .config import Config
 
@@ -28,12 +30,42 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(posts, url_prefix='/api/posts')
+app.register_blueprint(posts_graphics, prefix='/api/post_graphics')
 db.init_app(app)
 Migrate(app, db)
 
 # Application Security
 CORS(app)
 
+# Test routes below to check data via postman ################################
+
+# @app.route("/users")
+# def testusers():
+#     users = User.query.all()
+#     return [user.all_user_info_to_dict() for user in users]
+
+# @app.route("/posts")
+# def testposts():
+#     posts = Post.query.all()
+#     return [post.to_dict() for post in posts]
+
+# @app.route("/postgraphics")
+# def testpostmedia():
+#     postmedia = PostGraphic.query.all()
+#     return [media.to_dict() for media in postmedia]
+
+# @app.route("/comments")
+# def testcomments():
+#     comments = Comment.query.all()
+#     return [comment.to_dict() for comment in comments]
+
+# @app.route("/tags")
+# def testtags():
+#     tags = Tag.query.all()
+#     return [tag.to_dict() for tag in tags]
+
+##############################################################################
 
 # Since we are deploying with Docker and Flask,
 # we won't be using a buildpack when we deploy to Heroku.

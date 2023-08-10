@@ -18,7 +18,7 @@ class Post(db.Model, UserMixin):
 
     post_comments = db.relationship("Comment", backref="post", cascade="all, delete-orphan")
 
-    post_media = db.relationship("PostMedia", backref="post", cascade="all, delete-orphan")
+    post_graphics = db.relationship("PostGraphic", backref="post", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
@@ -29,5 +29,5 @@ class Post(db.Model, UserMixin):
             'description': self.description,
             'hidden': self.hidden,
             'post_comments': [comment.to_dict() for comment in self.post_comments],
-            'post_media': [postmedia.to_dict() for postmedia in self.post_media]
+            'post_graphic': [postgraphic.to_dict() for postgraphic in self.post_graphics]
         }

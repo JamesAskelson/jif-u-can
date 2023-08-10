@@ -1,16 +1,16 @@
-from app.models import db, PostMedia, environment, SCHEMA
-from .postmedia_data import medias
+from app.models import db, PostGraphic, environment, SCHEMA
+from .postgraphic_data import graphics
 from sqlalchemy.sql import text
 
 
 # Adds a demo user, you can add other users here if you want
-def seed_postmedias():
-    for media in medias:
-        new_media = PostMedia(
-            post_id=media["post_id"],
-            url=media["url"]
+def seed_postgraphics():
+    for graphic in graphics:
+        new_graphic = PostGraphic(
+            post_id=graphic["post_id"],
+            url=graphic["url"]
         )
-        db.session.add(new_media)
+        db.session.add(new_graphic)
 
     db.session.commit()
 
@@ -21,10 +21,10 @@ def seed_postmedias():
 # incrementing primary key, CASCADE deletes any dependent entities.  With
 # sqlite3 in development you need to instead use DELETE to remove all data and
 # it will reset the primary keys for you as well.
-def undo_postmedias():
+def undo_postgrahics():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.postmedias RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.postgraphics RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM postmedias"))
+        db.session.execute(text("DELETE FROM postgraphics"))
 
     db.session.commit()

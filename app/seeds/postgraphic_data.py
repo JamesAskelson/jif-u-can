@@ -1,4 +1,4 @@
-medias = [
+graphics = [
     {
         "post_id": 1,
         "url": "https://i.imgur.com/qGthkFt.jpeg",

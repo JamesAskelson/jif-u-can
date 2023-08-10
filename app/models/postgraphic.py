@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
-class PostMedia(db.Model):
-    __tablename__ = "postmedias"
+class PostGraphic(db.Model):
+    __tablename__ = "postgraphics"
 
     if environment == "production":
         __table_args__ = {"schema": SCHEMA}
