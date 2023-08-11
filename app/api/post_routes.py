@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import Post, db, PostGraphic
 from flask_login import current_user, login_user, logout_user, login_required
+from ..forms.add_post_form import PostForm
 
 posts = Blueprint("posts", __name__)
 
@@ -9,3 +10,30 @@ posts = Blueprint("posts", __name__)
 def get_all_posts():
     posts = Post.query.all()
     return [post.to_dict() for post in posts]
+
+@posts.route("/new", methods=["POST"])
+@login_required
+def new_post():
+    form = PostForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+    if form.validate_on_submit():
+        data = form.data
+        new_post = Post(
+            user_id=data["user_id"],
+            tag_id=data["tag_id"],
+            title=data["title"],
+            description=data["description"],
+            hidden=data["hidden"],
+        )
+
+        db.session.add(new_post)
+        db.session.commit()
+
+        graphic = PostGraphic(post_id=new_post.id, url=data["graphic"])
+        db.session.add(graphic)
+        db.session.commit()
+
+        return new_post.to_dict()
+
+    if form.errors:
+        return form.errors

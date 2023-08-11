@@ -3,6 +3,7 @@ import { dataNormalizer } from "./utilities";
 // constants
 
 const GET_ALL_POSTS = "get_posts/GET";
+const CREATE_POST = "create_post/POST";
 
 // actions
 
@@ -10,6 +11,11 @@ const getPosts = (posts) => ({
     type: GET_ALL_POSTS,
     data: posts,
 });
+
+const makePost = (post) => ({
+    type: CREATE_POST,
+    data: post,
+})
 
 // Thunks
 
@@ -21,6 +27,21 @@ export const getAllPostsThunk = () => async (dispatch) => {
         dispatch(getPosts(data))
     }
 };
+
+export const makeNewPost = (post) => async (dispatch) => {
+    console.log("from the thunk", post)
+    const res = await fetch("/api/posts/new", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(post),
+    })
+    if(res.ok) {
+        const newPost = await res.json();
+        console.log('newpost in thunk', newPost)
+        dispatch(makePost(newPost));
+        return newPost.id;
+    }
+}
 
 // Reducer
 
@@ -35,6 +56,12 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 ...normalizedPosts,
             };
+        }
+        case CREATE_POST: {
+            const newState = { ...state };
+            const newPost = action.data;
+            newState[newPost.id] = newPost;
+            return newState;
         }
         default: {
             return state;
