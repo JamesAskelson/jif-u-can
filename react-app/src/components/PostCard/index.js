@@ -1,6 +1,5 @@
 
 export default function PostCard({ post }) {
-    console.log('post', post)
     return (
         <div id='post-card-container'>
             <div id='post-card-image-container'>

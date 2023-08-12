@@ -2,17 +2,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { getAllPostsThunk } from "../../store/posts";
 import { useEffect } from "react";
+import OpenModalButton from '../OpenModalButton';
+import EditPostModal from "../EditPostModal";
 
 export default function PostDetails() {
     const history = useHistory();
     const dispatch = useDispatch()
     let { id } = useParams();
     id = parseInt(id);
-    const user = useSelector((store) => store.session.user);
-    console.log('user',user)
+    const sessionUser = useSelector((store) => store.session.user);
     const posts = useSelector((store) => store.posts);
-    const post = posts[id]
-    const photos = post?.post_graphic
+    const post = posts[id];
+    const photos = post?.post_graphic;
+
 
     useEffect(() => {
         // MEGATHUNKADONK
@@ -43,6 +45,18 @@ export default function PostDetails() {
                 <p>
                     {post.description}
                 </p>
+                <div id='edit-delete-post-container'>
+                    {sessionUser.id === post.user_id && <OpenModalButton
+						className="edit-modal-button"
+						buttonText="Edit Post"
+						modalComponent={<EditPostModal user={sessionUser} post={post}/>}
+					/>}
+                    {sessionUser.id === post.user_id && <OpenModalButton
+						className="edit-modal-button"
+						buttonText="Edit Post"
+						modalComponent={<EditPostModal user={sessionUser}  />}
+					/>}
+                </div>
             </div>
 
         </div>

@@ -37,3 +37,33 @@ def new_post():
 
     if form.errors:
         return form.errors
+
+@posts.route("/<postId>", methods=["PATCH"])
+def edit_post(postId):
+    form = PostForm()
+    form["csrf_token"].data = request.cookies["csrf_token"]
+
+    if form.validate_on_submit():
+        data = form.data
+        post = Post.query.get(postId)
+
+
+        post.user_id=data["user_id"]
+        post.tag_id=data["tag_id"]
+        post.title=data["title"]
+        post.description=data["description"]
+        post.hidden=data["hidden"]
+
+        db.session.commit()
+
+        photo = PostGraphic.query.filter(PostGraphic.post_id == postId).first()
+        print('--------------------------------', photo.to_dict())
+
+        photo.url=data["graphic"]
+
+        db.session.commit()
+
+        return post.to_dict()
+    
+    if form.errors:
+        return form.errors

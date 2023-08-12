@@ -2,19 +2,19 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect, useState } from "react";
-import { makeNewPost } from "../../store/posts";
+import { editExistingPost } from "../../store/posts";
 
-export default function AddPostModal({ user }) {
+export default function EditPostModal({ user, post }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { closeModal } = useModal();
     const [errorValidation, setErrorValidation] = useState({});
     const [hasSubmitted, setHasSubmitted] = useState(false)
-    const [tag_id, setTagId] = useState(1);
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [hidden, setHidden] = useState(false);
-    const [graphic, setGraphic] = useState("");
+    const [tag_id, setTagId] = useState(post.tag_id);
+    const [title, setTitle] = useState(post.title);
+    const [description, setDescription] = useState(post.description);
+    const [hidden, setHidden] = useState(post.hidden);
+    const [graphic, setGraphic] = useState(post.post_graphic[0].url);
 
     // Submit Handler and Error Checking
 
@@ -41,11 +41,12 @@ export default function AddPostModal({ user }) {
                 hidden,
                 graphic
             }
-            const newPostId = await dispatch(makeNewPost(data));
+
+            const newPostId = await dispatch(editExistingPost(data, post.id));
             console.log('newpostid',newPostId)
             reset();
             closeModal();
-            history.push(`/posts/${newPostId}`);
+            history.push(`/posts/${newPostId.id}`);
         }
     }
 

@@ -4,6 +4,7 @@ import { dataNormalizer } from "./utilities";
 
 const GET_ALL_POSTS = "get_posts/GET";
 const CREATE_POST = "create_post/POST";
+const EDIT_POST = "edit_post/POST";
 
 // actions
 
@@ -15,6 +16,11 @@ const getPosts = (posts) => ({
 const makePost = (post) => ({
     type: CREATE_POST,
     data: post,
+})
+
+const editPost = (post) => ({
+    type: EDIT_POST,
+    data: post
 })
 
 // Thunks
@@ -29,7 +35,7 @@ export const getAllPostsThunk = () => async (dispatch) => {
 };
 
 export const makeNewPost = (post) => async (dispatch) => {
-    console.log("from the thunk", post)
+
     const res = await fetch("/api/posts/new", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -37,9 +43,25 @@ export const makeNewPost = (post) => async (dispatch) => {
     })
     if(res.ok) {
         const newPost = await res.json();
-        console.log('newpost in thunk', newPost)
         dispatch(makePost(newPost));
         return newPost.id;
+    }
+}
+
+export const editExistingPost = (post, postId) => async (dispatch) => {
+    // console.log('postid', postId)
+
+    const res = await fetch(`/api/posts/${postId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(post),
+    });
+
+    if(res.ok) {
+        const edittedPost = await res.json();
+        dispatch(editPost(edittedPost));
+        console.log('thunk return', edittedPost)
+        return edittedPost
     }
 }
 
@@ -61,6 +83,12 @@ export default function reducer(state = initialState, action) {
             const newState = { ...state };
             const newPost = action.data;
             newState[newPost.id] = newPost;
+            return newState;
+        }
+        case EDIT_POST: {
+            const newState = { ...state };
+            const edittedPost = action.data;
+            newState[edittedPost.id] = edittedPost;
             return newState;
         }
         default: {
