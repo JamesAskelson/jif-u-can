@@ -4,6 +4,7 @@ import { getAllPostsThunk } from "../../store/posts";
 import { useEffect } from "react";
 import OpenModalButton from '../OpenModalButton';
 import EditPostModal from "../EditPostModal";
+import DeletePostModal from "../../DeletePostModal";
 
 export default function PostDetails() {
     const history = useHistory();
@@ -52,9 +53,9 @@ export default function PostDetails() {
 						modalComponent={<EditPostModal user={sessionUser} post={post}/>}
 					/>}
                     {sessionUser.id === post.user_id && <OpenModalButton
-						className="edit-modal-button"
-						buttonText="Edit Post"
-						modalComponent={<EditPostModal user={sessionUser}  />}
+						className="delete-modal-button"
+						buttonText="Delete Post"
+						modalComponent={<DeletePostModal post={post}/>}
 					/>}
                 </div>
             </div>

@@ -39,6 +39,7 @@ def new_post():
         return form.errors
 
 @posts.route("/<postId>", methods=["PATCH"])
+@login_required
 def edit_post(postId):
     form = PostForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
@@ -64,6 +65,19 @@ def edit_post(postId):
         db.session.commit()
 
         return post.to_dict()
-    
+
     if form.errors:
         return form.errors
+
+@posts.route("/<postId>", methods=["DELETE"])
+@login_required
+def delete_post(postId):
+
+    post = Post.query.get(postId)
+    print('------------------------------------', post)
+    if not post:
+        return {"message": "bruh"}, 404
+    db.session.delete(post)
+    db.session.commit()
+
+    return post.to_dict(), 200

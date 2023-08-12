@@ -19,5 +19,4 @@ class Comment(db.Model):
             "post_id": self.post_id,
             "text": self.text,
             "url": self.url,
-            "user": self.user.to_dict()
         }

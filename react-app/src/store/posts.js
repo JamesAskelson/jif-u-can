@@ -5,6 +5,7 @@ import { dataNormalizer } from "./utilities";
 const GET_ALL_POSTS = "get_posts/GET";
 const CREATE_POST = "create_post/POST";
 const EDIT_POST = "edit_post/POST";
+const DELETE_POST = "delete_post/DELETE"
 
 // actions
 
@@ -20,6 +21,11 @@ const makePost = (post) => ({
 
 const editPost = (post) => ({
     type: EDIT_POST,
+    data: post
+})
+
+const deletePost = (post) => ({
+    type: DELETE_POST,
     data: post
 })
 
@@ -65,6 +71,19 @@ export const editExistingPost = (post, postId) => async (dispatch) => {
     }
 }
 
+export const deleteExistingPost = (postId) => async (dispatch) => {
+    console.log('postId', postId)
+    const res = await fetch(`/api/posts/${postId}`, {
+        method: "DELETE",
+    })
+
+    if(res.ok) {
+        const postToDelete = await res.json();
+        dispatch(deletePost(postId))
+        return postToDelete
+    }
+}
+
 // Reducer
 
 const initialState = {};
@@ -90,6 +109,11 @@ export default function reducer(state = initialState, action) {
             const edittedPost = action.data;
             newState[edittedPost.id] = edittedPost;
             return newState;
+        }
+        case DELETE_POST: {
+            const newState = { ...state };
+            delete newState[action.data];
+            return newState
         }
         default: {
             return state;
