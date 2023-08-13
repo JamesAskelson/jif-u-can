@@ -8,6 +8,7 @@ from .models import db, User, Post, PostGraphic, Comment, Tag
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.post_routes import posts
+from .api.comment_routes import comments
 from .api.postgraphic_routes import posts_graphics
 from .seeds import seed_commands
 from .config import Config
@@ -31,7 +32,8 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(posts, url_prefix='/api/posts')
-app.register_blueprint(posts_graphics, prefix='/api/post_graphics')
+app.register_blueprint(comments, url_prefix='/api/comments')
+app.register_blueprint(posts_graphics, url_prefix='/api/post_graphics')
 db.init_app(app)
 Migrate(app, db)
 

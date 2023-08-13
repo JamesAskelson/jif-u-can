@@ -1,6 +1,6 @@
 import { dataNormalizer } from "./utilities";
 
-// constants
+// constaints
 
 const GET_ALL_POSTS = "get_posts/GET";
 const CREATE_POST = "create_post/POST";

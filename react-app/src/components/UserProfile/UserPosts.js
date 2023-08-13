@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import PostCard from "../PostCard"
 
 export default function UserPosts({ posts }){
-    console.log(posts)
+
     return (
         <div id='user-posts'>
             <div id='user-posts-nav-container'>

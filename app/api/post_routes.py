@@ -8,8 +8,8 @@ posts = Blueprint("posts", __name__)
 
 @posts.route("/")
 def get_all_posts():
-    posts = Post.query.all()
-    return [post.to_dict() for post in posts]
+    allPosts = Post.query.all()
+    return [post.to_dict() for post in allPosts]
 
 @posts.route("/new", methods=["POST"])
 @login_required
@@ -74,7 +74,6 @@ def edit_post(postId):
 def delete_post(postId):
 
     post = Post.query.get(postId)
-    print('------------------------------------', post)
     if not post:
         return {"message": "bruh"}, 404
     db.session.delete(post)

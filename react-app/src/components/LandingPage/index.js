@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllPostsThunk } from "../../store/posts";
 import { Link } from "react-router-dom";
 import PostCard from "../PostCard";
+import { getUserCommentsThunk } from "../../store/comments";
 
 
 export default function Landing() {
@@ -15,6 +16,7 @@ export default function Landing() {
         if (!Object.values(postsData).length) {
           async function fetchData() {
             await dispatch(getAllPostsThunk());
+            await dispatch(getUserCommentsThunk());
           }
           fetchData();
         }

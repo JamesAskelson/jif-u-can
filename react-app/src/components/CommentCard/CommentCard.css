@@ -1,0 +1,9 @@
+#comment-card-container{
+    display: flex;
+
+}
+
+#comment-card-image-container>img{
+    max-width: 100px;
+    max-height: 100px;
+}

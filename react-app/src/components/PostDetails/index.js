@@ -15,7 +15,8 @@ export default function PostDetails() {
     const posts = useSelector((store) => store.posts);
     const post = posts[id];
     const photos = post?.post_graphic;
-
+    const comments = post?.post_comments
+    console.log(comments)
 
     useEffect(() => {
         // MEGATHUNKADONK
@@ -47,17 +48,25 @@ export default function PostDetails() {
                     {post.description}
                 </p>
                 <div id='edit-delete-post-container'>
-                    {sessionUser.id === post.user_id && <OpenModalButton
+                    {sessionUser && sessionUser.id === post.user_id && <OpenModalButton
 						className="edit-modal-button"
 						buttonText="Edit Post"
 						modalComponent={<EditPostModal user={sessionUser} post={post}/>}
 					/>}
-                    {sessionUser.id === post.user_id && <OpenModalButton
+                    {sessionUser && sessionUser.id === post.user_id && <OpenModalButton
 						className="delete-modal-button"
 						buttonText="Delete Post"
 						modalComponent={<DeletePostModal post={post}/>}
 					/>}
                 </div>
+            </div>
+            <div id='post-comments-container'>
+                <p>{comments?.length} Comments</p>
+                {comments?.map((comment) => (
+                    <div>
+                         {comment.text}
+                    </div>
+                ))}
             </div>
 
         </div>
