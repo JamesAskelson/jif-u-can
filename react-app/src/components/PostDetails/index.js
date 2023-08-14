@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { getAllPostsThunk } from "../../store/posts";
+import { deleteCommentThunk, getAllPostsThunk } from "../../store/posts";
 import { useEffect } from "react";
 import OpenModalButton from '../OpenModalButton';
 import EditPostModal from "../EditPostModal";
 import DeletePostModal from "../../DeletePostModal";
+import AddCommentForm from "./addCommentForm";
+import EditCommentModal from "../EditCommentModal";
 
 export default function PostDetails() {
     const history = useHistory();
@@ -17,6 +19,8 @@ export default function PostDetails() {
     const photos = post?.post_graphic;
     const comments = post?.post_comments
     console.log(comments)
+
+
 
     useEffect(() => {
         // MEGATHUNKADONK
@@ -60,15 +64,27 @@ export default function PostDetails() {
 					/>}
                 </div>
             </div>
+            <AddCommentForm user={sessionUser} post={post}/>
             <div id='post-comments-container'>
                 <p>{comments?.length} Comments</p>
                 {comments?.map((comment) => (
                     <div>
-                         {comment.text}
+                        <div>
+                            {comment.text}
+                        </div>
+                        <div>
+                            {sessionUser && sessionUser.id === comment.user_id && <OpenModalButton
+                                className="edit-modal-button"
+                                buttonText="Edit"
+                                modalComponent={<EditCommentModal post={post} user={sessionUser} comment={comment}/>}
+                            />}
+                            {sessionUser && sessionUser.id === comment.user_id &&<button onClick={() => dispatch(deleteCommentThunk(post.id, comment.id))}>
+                                Delete
+                            </button>}
+                        </div>
                     </div>
                 ))}
             </div>
-
         </div>
     )
 }
