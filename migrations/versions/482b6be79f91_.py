@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 70bb2a9a54de
+Revision ID: 482b6be79f91
 Revises:
-Create Date: 2023-08-14 18:52:57.885636
+Create Date: 2023-08-15 13:43:38.624603
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '70bb2a9a54de'
+revision = '482b6be79f91'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -34,10 +34,9 @@ def upgrade():
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=40), nullable=False),
-    sa.Column('firstname', sa.String(length=20), nullable=False),
-    sa.Column('lastname', sa.String(length=20), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
+    sa.Column('created_date', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
@@ -53,6 +52,7 @@ def upgrade():
     sa.Column('title', sa.String(length=100), nullable=False),
     sa.Column('description', sa.String(length=1000), nullable=True),
     sa.Column('hidden', sa.Boolean(), nullable=False),
+    sa.Column('created_date', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['tag_id'], ['tags.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -67,6 +67,7 @@ def upgrade():
     sa.Column('post_id', sa.Integer(), nullable=True),
     sa.Column('text', sa.String(length=255), nullable=False),
     sa.Column('url', sa.String(length=255), nullable=True),
+    sa.Column('created_date', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['post_id'], ['posts.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')

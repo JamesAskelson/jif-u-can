@@ -102,6 +102,9 @@ def edit_post(postId):
 
         db.session.commit()
 
+        post_with_user = post.to_dict()
+        post_with_user["user"] = post.user.to_dict()
+
         return post.to_dict()
 
     if form.errors:

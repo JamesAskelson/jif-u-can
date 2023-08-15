@@ -10,7 +10,8 @@ def seed_comments():
             user_id=comment["user_id"],
             post_id=comment["post_id"],
             text=comment["text"],
-            url=comment["url"]
+            url=comment["url"],
+            created_date=comment["created_date"]
         )
         db.session.add(new_comment)
 

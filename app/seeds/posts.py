@@ -11,7 +11,8 @@ def seed_posts():
             tag_id=post["tag_id"],
             title=post["title"],
             description=post["description"],
-            hidden=post["hidden"]
+            hidden=post["hidden"],
+            created_date=post["created_date"]
         )
         db.session.add(new_post)
 

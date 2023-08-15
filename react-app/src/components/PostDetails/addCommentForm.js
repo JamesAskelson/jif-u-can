@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCommentToPostThunk } from "../../store/posts";
+import { addCommentToPostThunk, getAllPostsThunk } from "../../store/posts";
 
 
 export default function AddCommentForm({ user, post }) {
@@ -22,6 +22,7 @@ export default function AddCommentForm({ user, post }) {
             url
         }
         dispatch(addCommentToPostThunk(data))
+        dispatch(getAllPostsThunk())
         reset()
     }
 

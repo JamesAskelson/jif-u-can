@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect, useState } from "react";
-import { editExistingPost } from "../../store/posts";
+import { editExistingPost, getAllPostsThunk } from "../../store/posts";
 
 export default function EditPostModal({ user, post }) {
     const dispatch = useDispatch();
@@ -13,7 +13,7 @@ export default function EditPostModal({ user, post }) {
     const [tag_id, setTagId] = useState(post.tag_id);
     const [title, setTitle] = useState(post.title);
     const [description, setDescription] = useState(post.description);
-    const [hidden, setHidden] = useState(post.hidden);
+    const [hidden, setHidden] = useState(!!post.hidden);
     const [graphic, setGraphic] = useState(post.post_graphic[0].url);
 
     // Submit Handler and Error Checking
@@ -43,6 +43,7 @@ export default function EditPostModal({ user, post }) {
             }
 
             const newPostId = await dispatch(editExistingPost(data, post.id));
+            dispatch(getAllPostsThunk())
             console.log('newpostid',newPostId)
             reset();
             closeModal();
@@ -132,6 +133,7 @@ export default function EditPostModal({ user, post }) {
 								value={true}
 								name="yes-no"
 								onChange={(e) => setHidden(e.target.value)}
+                                checked={hidden === true}
 								required
 							/> Yes
 							<input
@@ -139,6 +141,7 @@ export default function EditPostModal({ user, post }) {
 								value={false}
 								name="yes-no"
 								onChange={(e) => setHidden(e.target.value)}
+                                checked={hidden === false}
 								required
 							/> No
                     </div>

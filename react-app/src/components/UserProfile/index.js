@@ -9,14 +9,15 @@ import { getUserCommentsThunk } from "../../store/comments"
 
 
 export default function UserProfile() {
+    const dispatch = useDispatch();
+    const history = useHistory();
     const sessionUser = useSelector((store) => store.session.user);
+    if (!sessionUser) history.push("/")
     const posts = useSelector((store) => store.posts);
     const postsArr = Object.values(posts);
     const userPosts = postsArr.filter(post => post.user_id === sessionUser.id);
     const userComments = useSelector((store) => store.comments)
     console.log('comments', userComments)
-    const dispatch = useDispatch();
-    const history = useHistory();
     const [view, setView] = useState("posts");
 
     useEffect(() => {

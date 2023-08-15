@@ -22,10 +22,18 @@ export default function PostDetails() {
     console.log('post', post)
     console.log('comments', comments)
 
+    const postDate = new Date(post?.created_date)
+    const currentDate = new Date()
+    const timeDifference = currentDate.getTime() - postDate.getTime()
+    const dayDiff = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    console.log(dayDiff)
+
+    console.log('user info', post?.user)
+
 
     useEffect(() => {
         // MEGATHUNKADONK
-        if (!Object.values(posts).length) {
+        if (!Object.values(posts).length || !Object.values(post).length) {
           async function fetchData() {
             await dispatch(getAllPostsThunk());
           }
@@ -45,8 +53,11 @@ export default function PostDetails() {
                     {post.title}
                 </h2>
                 <p>
-                    {post.user.username}
+                    {post?.user?.username}
                 </p>
+                <div>
+                    {dayDiff === 0 ? "Today" : `${dayDiff} days ago`}
+                </div>
                 <img
                 alt='post'
                 src={photos[0].url}
@@ -76,10 +87,10 @@ export default function PostDetails() {
                 {comments?.map((comment) => (
                     <div>
                         <div>
-                            {comment.user.username}
+                            {comment.user?.username} • {comment?.created_date}
                         </div>
                         <div>
-                            {comment.text}
+                            {comment?.text}
                         </div>
                         <div>
                             {sessionUser && sessionUser.id === comment.user_id && <OpenModalButton
@@ -87,7 +98,7 @@ export default function PostDetails() {
                                 buttonText="Edit"
                                 modalComponent={<EditCommentModal post={post} user={sessionUser} comment={comment}/>}
                             />}
-                            {sessionUser && sessionUser.id === comment.user_id &&
+                            {sessionUser && sessionUser?.id === comment?.user_id &&
                             <button
                                 onClick={() => {
                                     dispatch(deleteCommentThunk(post.id, comment.id));

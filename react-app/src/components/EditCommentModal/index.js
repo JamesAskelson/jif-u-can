@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { editCommentThunk } from "../../store/posts";
+import { editCommentThunk, getAllPostsThunk } from "../../store/posts";
 import { useModal } from "../../context/Modal";
-
 
 
 export default function EditCommentModal({ user, post, comment }) {
@@ -26,6 +25,7 @@ export default function EditCommentModal({ user, post, comment }) {
         }
         console.log('comment', comment.id)
         dispatch(editCommentThunk(data, comment.id))
+        dispatch(getAllPostsThunk())
         reset()
         closeModal()
     }

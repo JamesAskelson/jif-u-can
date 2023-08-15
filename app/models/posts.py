@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 # from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
 
 
 class Post(db.Model, UserMixin):
@@ -15,6 +16,8 @@ class Post(db.Model, UserMixin):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(1000), nullable=True)
     hidden = db.Column(db.Boolean, nullable=False)
+    created_date = db.Column(db.DateTime, default=datetime.utcnow)
+
 
     post_comments = db.relationship("Comment", backref="post", cascade="all, delete-orphan")
 
@@ -30,6 +33,7 @@ class Post(db.Model, UserMixin):
             'title': self.title,
             'description': self.description,
             'hidden': self.hidden,
+            'created_date': self.created_date,
             'post_comments': [comment.to_dict() for comment in self.post_comments],
             'post_graphic': [postgraphic.to_dict() for postgraphic in self.post_graphics]
         }

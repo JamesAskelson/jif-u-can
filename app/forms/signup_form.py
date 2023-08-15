@@ -19,9 +19,14 @@ def username_exists(form, field):
     if user:
         raise ValidationError('Username is already in use.')
 
+def email_ending(form, field):
+    email = field.data
+    if not (email.lower().endswith('.com') or email.lower().endswith('.io')):
+        raise ValidationError('Email must end with .com or .io')
+
 
 class SignUpForm(FlaskForm):
     username = StringField(
         'username', validators=[DataRequired(), username_exists])
-    email = StringField('email', validators=[DataRequired(), user_exists])
+    email = StringField('email', validators=[DataRequired(), user_exists, email_ending])
     password = StringField('password', validators=[DataRequired()])

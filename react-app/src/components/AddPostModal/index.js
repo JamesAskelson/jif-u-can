@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { useEffect, useState } from "react";
-import { makeNewPost } from "../../store/posts";
+import { getAllPostsThunk, makeNewPost } from "../../store/posts";
 
 export default function AddPostModal({ user }) {
     const dispatch = useDispatch();
@@ -42,6 +42,7 @@ export default function AddPostModal({ user }) {
                 graphic
             }
             const newPostId = await dispatch(makeNewPost(data));
+            await dispatch(getAllPostsThunk())
             console.log('newpostid',newPostId)
             reset();
             closeModal();
