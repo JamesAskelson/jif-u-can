@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
 import PostDetails from "./components/PostDetails";
 import UserProfile from "./components/UserProfile";
+import TagPosts from "./components/TagPosts";
 
 
 function App() {
@@ -27,6 +28,9 @@ function App() {
           </Route>
           <Route exact path='/posts/:id'>
             <PostDetails />
+          </Route>
+          <Route exact path='/tags/:id'>
+            <TagPosts/>
           </Route>
           <Route exact path='/users/profile'>
             <UserProfile />

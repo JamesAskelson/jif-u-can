@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addCommentToPostThunk } from "../../store/posts";
 
+
 export default function AddCommentForm({ user, post }) {
     const dispatch = useDispatch();
     const [errorValidation, setErrorValidation] = useState({});

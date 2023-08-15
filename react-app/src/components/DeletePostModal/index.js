@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
-import { useModal } from "../context/Modal"
-import { deleteExistingPost, getAllPostsThunk } from "../store/posts"
+import { useModal } from "../../context/Modal"
+import { deleteExistingPost, getAllPostsThunk } from "../../store/posts"
 import { useHistory } from "react-router-dom"
 
 

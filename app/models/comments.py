@@ -1,4 +1,5 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from sqlalchemy.orm import joinedload
 
 class Comment(db.Model):
     __tablename__ = "comments"
@@ -11,6 +12,8 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("posts.id")))
     text = db.Column(db.String(255), nullable=False)
     url = db.Column(db.String(255), nullable=True)
+    
+    user = db.relationship("User", back_populates="user_comments", lazy="select")
 
     def to_dict(self):
         return {

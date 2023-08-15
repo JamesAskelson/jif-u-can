@@ -24,7 +24,7 @@ export default function UserProfile() {
         if (!Object.values(posts).length || !Object.values(userComments).length) {
           async function fetchData() {
             await dispatch(getAllPostsThunk());
-            await dispatch(getUserCommentsThunk())
+            await dispatch(getUserCommentsThunk());
           }
           fetchData();
         }

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 196cc65c29aa
+Revision ID: 70bb2a9a54de
 Revises:
-Create Date: 2023-08-11 22:24:07.009991
+Create Date: 2023-08-14 18:52:57.885636
 
 """
 from alembic import op
@@ -12,9 +12,8 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
-
 # revision identifiers, used by Alembic.
-revision = '196cc65c29aa'
+revision = '70bb2a9a54de'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -86,7 +85,6 @@ def upgrade():
 
     if environment == "production":
         op.execute(f"ALTER TABLE postgraphics SET SCHEMA {SCHEMA};")
-
     # ### end Alembic commands ###
 
 

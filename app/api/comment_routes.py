@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import Post, db, PostGraphic, Comment
+from app.models import Post, db, PostGraphic, Comment, User
 from ..forms.add_comment_form import CommentForm
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy.orm import joinedload
 
 comments = Blueprint("comments", __name__)
 
@@ -11,6 +12,12 @@ def getAllUserComments():
     allUserComments = Comment.query.filter(Comment.user_id == current_user.id)
     userComments = [comment.to_dict() for comment in allUserComments]
     return userComments
+
+# @comments.route("/<int:commentId>")
+# def getSpecificComment(commentId):
+#     singleComment = db.session.query(Comment).options(joinedload(Comment.user)).get(commentId)
+#     print('-------------------------------------------', singleComment.user)
+#     return {"whatever": "fdfasdasd"}
 
 @comments.route("/new", methods=["POST"])
 @login_required
@@ -63,6 +70,7 @@ def edit_comment(commentId):
 def delete_comment(commentId):
 
     comment = Comment.query.get(commentId)
+    user_data = comment.user.to_dict()
     if not comment:
         return {"message": "bruh"}, 404
     db.session.delete(comment)

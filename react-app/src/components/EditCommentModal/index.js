@@ -4,6 +4,7 @@ import { editCommentThunk } from "../../store/posts";
 import { useModal } from "../../context/Modal";
 
 
+
 export default function EditCommentModal({ user, post, comment }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();

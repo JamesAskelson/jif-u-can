@@ -20,6 +20,8 @@ class Post(db.Model, UserMixin):
 
     post_graphics = db.relationship("PostGraphic", backref="post", cascade="all, delete-orphan")
 
+    user = db.relationship("User", back_populates="user_posts", lazy="select")
+
     def to_dict(self):
         return {
             'id': self.id,

@@ -3,12 +3,13 @@ import { dataNormalizer } from "./utilities";
 // constaints
 
 const GET_ALL_POSTS = "get_posts/GET";
+const GET_SINGLE_POST = "get_single_post/GET"
 const CREATE_POST = "create_post/POST";
 const EDIT_POST = "edit_post/POST";
 const DELETE_POST = "delete_post/DELETE";
 const ADD_COMMENT_TO_POST = 'add_comment_to_post/POST'
-const EDIT_COMMENT = 'edit_comment/PATCH'
-const DELETE_COMMENT = 'delete_comment/DELETE'
+const EDIT_COMMENT_ON_POST = 'edit_comment/PATCH'
+const DELETE_COMMENT_ON_POST = 'delete_comment/DELETE'
 
 // actions
 
@@ -16,6 +17,11 @@ const getPosts = (posts) => ({
     type: GET_ALL_POSTS,
     data: posts,
 });
+
+const getPost = (post) => ({
+    type: GET_SINGLE_POST,
+    data: post
+})
 
 const makePost = (post) => ({
     type: CREATE_POST,
@@ -38,16 +44,18 @@ const addCommentToPost = (comment) => ({
 })
 
 const editComment = (comment) => ({
-    type: EDIT_COMMENT,
+    type: EDIT_COMMENT_ON_POST,
     data: comment
 })
 
 const deleteComment = (commentArr) => ({
-    type: DELETE_COMMENT,
+    type: DELETE_COMMENT_ON_POST,
     data: commentArr
 })
 
 // Thunks
+
+// posts
 
 export const getAllPostsThunk = () => async (dispatch) => {
     const res = await fetch("/api/posts");
@@ -57,6 +65,15 @@ export const getAllPostsThunk = () => async (dispatch) => {
         dispatch(getPosts(data))
     }
 };
+
+export const getSingleSpotByIdThunk = (postId) => async (dispatch) => {
+    const res = await fetch(`/api/posts/${postId}`);
+
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(getPost(data))
+    }
+}
 
 export const makeNewPost = (post) => async (dispatch) => {
 
@@ -101,6 +118,8 @@ export const deleteExistingPost = (postId) => async (dispatch) => {
         return postToDelete
     }
 }
+
+// comments
 
 export const addCommentToPostThunk = (comment) => async (dispatch) => {
     const res = await fetch("/api/comments/new", {
@@ -178,14 +197,14 @@ export default function reducer(state = initialState, action) {
             newState[action.data.post_id].post_comments.push(action.data);
             return newState;
         }
-        case EDIT_COMMENT: {
+        case EDIT_COMMENT_ON_POST: {
             const newState = { ...state };
             const postComments = newState[action.data.post_id].post_comments
             const commentIndex = postComments.findIndex((comment) => comment.id === action.data.id);
             postComments[commentIndex] = action.data;
             return newState;
         }
-        case DELETE_COMMENT: {
+        case DELETE_COMMENT_ON_POST: {
             const [postId, commentId] = action.data;
             const newState = { ...state }
             const postComments = newState[postId].post_comments;

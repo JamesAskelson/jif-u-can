@@ -25,7 +25,7 @@ def seed_tags():
     )
 
     nature = Tag(
-        title="Movies and Tv",
+        title="Nature",
         tagline="The great outdoors",
     )
 

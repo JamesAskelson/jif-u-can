@@ -4,13 +4,14 @@ import { deleteCommentThunk, getAllPostsThunk } from "../../store/posts";
 import { useEffect } from "react";
 import OpenModalButton from '../OpenModalButton';
 import EditPostModal from "../EditPostModal";
-import DeletePostModal from "../../DeletePostModal";
+import DeletePostModal from "../DeletePostModal";
 import AddCommentForm from "./addCommentForm";
 import EditCommentModal from "../EditCommentModal";
 
+
 export default function PostDetails() {
     const history = useHistory();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     let { id } = useParams();
     id = parseInt(id);
     const sessionUser = useSelector((store) => store.session.user);
@@ -18,8 +19,8 @@ export default function PostDetails() {
     const post = posts[id];
     const photos = post?.post_graphic;
     const comments = post?.post_comments
-    console.log(comments)
-
+    console.log('post', post)
+    console.log('comments', comments)
 
 
     useEffect(() => {
@@ -43,6 +44,9 @@ export default function PostDetails() {
                 <h2>
                     {post.title}
                 </h2>
+                <p>
+                    {post.user.username}
+                </p>
                 <img
                 alt='post'
                 src={photos[0].url}
@@ -64,11 +68,16 @@ export default function PostDetails() {
 					/>}
                 </div>
             </div>
-            <AddCommentForm user={sessionUser} post={post}/>
+            <div>
+                {sessionUser && <AddCommentForm user={sessionUser} post={post}/>}
+            </div>
             <div id='post-comments-container'>
                 <p>{comments?.length} Comments</p>
                 {comments?.map((comment) => (
                     <div>
+                        <div>
+                            {comment.user.username}
+                        </div>
                         <div>
                             {comment.text}
                         </div>
@@ -78,7 +87,12 @@ export default function PostDetails() {
                                 buttonText="Edit"
                                 modalComponent={<EditCommentModal post={post} user={sessionUser} comment={comment}/>}
                             />}
-                            {sessionUser && sessionUser.id === comment.user_id &&<button onClick={() => dispatch(deleteCommentThunk(post.id, comment.id))}>
+                            {sessionUser && sessionUser.id === comment.user_id &&
+                            <button
+                                onClick={() => {
+                                    dispatch(deleteCommentThunk(post.id, comment.id));
+                                }}
+                            >
                                 Delete
                             </button>}
                         </div>

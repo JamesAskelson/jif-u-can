@@ -10,7 +10,7 @@ export default function PostCard({ post }) {
                 />
             </div>
             <div id='post-card-info-container'>
-                {post.description}
+                {post.title}
             </div>
         </div>
     )
