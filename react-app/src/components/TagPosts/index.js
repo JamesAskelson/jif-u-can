@@ -27,7 +27,7 @@ export default function TagPosts() {
                     </h3>
                 </div>
                 <div>
-                    {tagPosts?.map((post) => (
+                    {tagPosts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
                         <Link to={`/posts/${post.id}`} title={post.title}>
                             <PostCard post={post} key={post.id} />
                         </Link>

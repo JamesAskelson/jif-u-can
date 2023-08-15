@@ -35,7 +35,7 @@ export default function Landing() {
                 ))}
             </div>
             <div id='posts-container'>
-                {posts?.map((post) => (
+                {posts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
                     <Link to={`/posts/${post.id}`} title={post.title}>
                         <PostCard post={post} key={post.id} />
                     </Link>

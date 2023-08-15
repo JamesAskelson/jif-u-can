@@ -7,6 +7,6 @@ class PostForm(FlaskForm):
     tag_id = IntegerField("tag_id", validators=[DataRequired()])
     title = StringField("title", validators=[DataRequired()])
     description = StringField("description")
-    hidden = BooleanField("hidden", validators=[InputRequired()])
+    hidden = BooleanField("hidden")
     graphic = StringField("graphic", validators=[DataRequired()])
     submit = SubmitField("submit")

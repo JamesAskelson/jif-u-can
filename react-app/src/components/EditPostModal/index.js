@@ -13,8 +13,9 @@ export default function EditPostModal({ user, post }) {
     const [tag_id, setTagId] = useState(post.tag_id);
     const [title, setTitle] = useState(post.title);
     const [description, setDescription] = useState(post.description);
-    const [hidden, setHidden] = useState(!!post.hidden);
+    const [hidden, setHidden] = useState(post.hidden);
     const [graphic, setGraphic] = useState(post.post_graphic[0].url);
+    console.log('hidden', hidden)
 
     // Submit Handler and Error Checking
 
@@ -26,7 +27,6 @@ export default function EditPostModal({ user, post }) {
 
         if(!title) errors.title = "Title is required";
         if(title.length < 10 || title.length > 100) errors.title = "Title must be between 10 and 100 characters long";
-        if(!hidden) errors.hidden = "Post must be either public or hidden";
         if(!graphic) errors.graphic = "All posts must contain an image or gif";
         if(!urlCheck(graphic)) errors.graphic = "All graphics must be in an image or gif format (.jgp, .png, .jpeg, .gif)";
 
@@ -38,9 +38,10 @@ export default function EditPostModal({ user, post }) {
                 tag_id,
                 title,
                 description,
-                hidden,
+                hidden: Number(hidden),
                 graphic
             }
+            console.log('data', data)
 
             const newPostId = await dispatch(editExistingPost(data, post.id));
             dispatch(getAllPostsThunk())
@@ -132,17 +133,15 @@ export default function EditPostModal({ user, post }) {
 								type="radio"
 								value={true}
 								name="yes-no"
-								onChange={(e) => setHidden(e.target.value)}
-                                checked={hidden === true}
-								required
+								onChange={(e) => setHidden(true)}
+                                checked={hidden}
 							/> Yes
 							<input
 								type="radio"
 								value={false}
 								name="yes-no"
-								onChange={(e) => setHidden(e.target.value)}
-                                checked={hidden === false}
-								required
+								onChange={(e) => setHidden(false)}
+                                checked={!hidden}
 							/> No
                     </div>
                     <div id='new-post-submit'>

@@ -7,6 +7,7 @@ import EditPostModal from "../EditPostModal";
 import DeletePostModal from "../DeletePostModal";
 import AddCommentForm from "./addCommentForm";
 import EditCommentModal from "../EditCommentModal";
+import PostComments from "./postComments";
 
 
 export default function PostDetails() {
@@ -84,30 +85,8 @@ export default function PostDetails() {
             </div>
             <div id='post-comments-container'>
                 <p>{comments?.length} Comments</p>
-                {comments?.map((comment) => (
-                    <div>
-                        <div>
-                            {comment.user?.username} • {comment?.created_date}
-                        </div>
-                        <div>
-                            {comment?.text}
-                        </div>
-                        <div>
-                            {sessionUser && sessionUser.id === comment.user_id && <OpenModalButton
-                                className="edit-modal-button"
-                                buttonText="Edit"
-                                modalComponent={<EditCommentModal post={post} user={sessionUser} comment={comment}/>}
-                            />}
-                            {sessionUser && sessionUser?.id === comment?.user_id &&
-                            <button
-                                onClick={() => {
-                                    dispatch(deleteCommentThunk(post.id, comment.id));
-                                }}
-                            >
-                                Delete
-                            </button>}
-                        </div>
-                    </div>
+                {comments.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((comment) => (
+                    <PostComments comment={comment} post={post} sessionUser={sessionUser}/>
                 ))}
             </div>
         </div>
