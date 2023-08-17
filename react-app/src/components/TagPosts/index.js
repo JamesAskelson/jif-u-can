@@ -32,16 +32,19 @@ export default function TagPosts() {
       }, [dispatch]);
 
     return (
-            <div id='hmm'>
-                <div>
-                    <h1>
-                        {tag?.title}
-                    </h1>
-                    <h3>
-                        {tag?.tagline}
-                    </h3>
+            <div id='tag-page-container'>
+                <div id='tag-info-container'>
+                    <div id='tag-title-container'>
+                        <h1>{tag?.title}</h1>
+                    </div>
+                    <div id='tag-tagline-container'>
+                        <h3>{tag?.tagline}</h3>
+                    </div>
+                    <div id='tag-posts-length'>
+                        <p>{tagPosts?.length} POSTS</p>
+                    </div>
                 </div>
-                <div>
+                <div id='tag-posts-container'>
                     {tagPosts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
                         <Link to={`/posts/${post.id}`} title={post.title}>
                             <PostCard post={post} key={post.id} />

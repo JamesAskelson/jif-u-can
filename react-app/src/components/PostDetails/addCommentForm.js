@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addCommentToPostThunk, getAllPostsThunk } from "../../store/posts";
+import './addCommentForm.css'
 
 
 export default function AddCommentForm({ user, post }) {
@@ -36,7 +37,6 @@ export default function AddCommentForm({ user, post }) {
 
         if(!text) errors.text = "Text is required"
         if(text.length > 255) errors.text = "Text must be less than 255 chars"
-
         setErrorValidation({...errors})
     }
 

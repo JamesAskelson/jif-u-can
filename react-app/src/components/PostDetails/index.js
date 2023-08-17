@@ -9,7 +9,8 @@ import AddCommentForm from "./addCommentForm";
 import EditCommentModal from "../EditCommentModal";
 import PostComments from "./postComments";
 import './PostDetails.css'
-
+import PostCard from "../PostCard";
+import { Link } from "react-router-dom";
 
 export default function PostDetails() {
     const history = useHistory();
@@ -17,8 +18,9 @@ export default function PostDetails() {
     let { id } = useParams();
     id = parseInt(id);
     const sessionUser = useSelector((store) => store.session.user);
-    const posts = useSelector((store) => store.posts);
-    const post = posts[id];
+    const postsData = useSelector((store) => store.posts);
+    const posts = Object.values(postsData)
+    const post = postsData[id];
     const photos = post?.post_graphic;
     const comments = post?.post_comments
     console.log('post', post)
@@ -35,7 +37,7 @@ export default function PostDetails() {
 
     useEffect(() => {
         // MEGATHUNKADONK
-        if (!Object.values(posts).length || !Object.values(post).length) {
+        if (!Object.values(postsData).length || !Object.values(post).length) {
           async function fetchData() {
             await dispatch(getAllPostsThunk());
           }
@@ -46,48 +48,79 @@ export default function PostDetails() {
     if (!post) return <></>;
 
     return (
-        <div id='post-details'>
+        <div>
             <h3 onClick={() => history.goBack()} id="breadcrumb">
                 {"< Go Back"}
             </h3>
-            <div id='post-details-main-container'>
-                <h2>
-                    {post.title}
-                </h2>
-                <p>
-                    {post?.user?.username}
-                </p>
-                <div>
-                    {dayDiff === 0 ? "Today" : `${dayDiff} days ago`}
+            <div id='post-details'>
+                <div id='post-details-main-container'>
+                    <div id='post-details-title-user'>
+                        <div>
+                            <h2>
+                                {post.title}
+                            </h2>
+                        </div>
+                            <div id='post-detail-user'>
+                                <span>{post?.user?.username}</span>
+                                <div>
+                                    {dayDiff === 0 ? "Today" : `${dayDiff} days ago`}
+                                </div>
+                            </div>
+                    </div>
+                    <div id='post-details-img'>
+                        <img
+                        alt='post'
+                        src={photos[0].url}
+                        title={post.title}
+                        />
+                    </div>
+                    <div id='post-description-container'>
+                        <p>
+                            {post.description}
+                        </p>
+                    </div>
+                    <div id='edit-delete-post-container'>
+                        {sessionUser && sessionUser.id === post.user_id &&
+                        <div id='edit-button-container'>
+                            <OpenModalButton
+                               className="edit-modal-button"
+                               buttonText="Edit Post"
+                               modalComponent={<EditPostModal user={sessionUser} post={post}/>}
+                           />
+                        </div>}
+
+                        {sessionUser && sessionUser.id === post.user_id &&
+                        <div id='delete-button-container'>
+                            <OpenModalButton
+                                className="delete-modal-button"
+                                buttonText="Delete Post"
+                                modalComponent={<DeletePostModal post={post}/>}
+                            />
+                        </div>}
+                    </div>
                 </div>
-                <img
-                alt='post'
-                src={photos[0].url}
-                title={post.title}
-                />
-                <p>
-                    {post.description}
-                </p>
-                <div id='edit-delete-post-container'>
-                    {sessionUser && sessionUser.id === post.user_id && <OpenModalButton
-						className="edit-modal-button"
-						buttonText="Edit Post"
-						modalComponent={<EditPostModal user={sessionUser} post={post}/>}
-					/>}
-                    {sessionUser && sessionUser.id === post.user_id && <OpenModalButton
-						className="delete-modal-button"
-						buttonText="Delete Post"
-						modalComponent={<DeletePostModal post={post}/>}
-					/>}
+                <div id='post-comments-whole-container'>
+                    <div>
+                        {sessionUser && <AddCommentForm user={sessionUser} post={post}/>}
+                    </div>
+                    <div id='post-num-comments'>
+                        {comments?.length} Comments
+                    </div>
+                    <div id='post-comments-container'>
+                        {comments.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((comment) => (
+                            <PostComments comment={comment} post={post} sessionUser={sessionUser}/>
+                        ))}
+                    </div>
                 </div>
             </div>
-            <div>
-                {sessionUser && <AddCommentForm user={sessionUser} post={post}/>}
+            <div id='explore-posts-text'>
+                EXPLORE POSTS
             </div>
-            <div id='post-comments-container'>
-                <p>{comments?.length} Comments</p>
-                {comments.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((comment) => (
-                    <PostComments comment={comment} post={post} sessionUser={sessionUser}/>
+            <div id='posts-container'>
+                {posts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
+                    <Link to={`/posts/${post.id}`} title={post.title}>
+                        <PostCard post={post} key={post.id} />
+                    </Link>
                 ))}
             </div>
         </div>

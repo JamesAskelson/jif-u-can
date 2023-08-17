@@ -28,11 +28,25 @@ export default function Landing() {
       }, [dispatch]);
 
     return (
-        <div>
-            <div id='tags-container'>
-                {tags?.map((tag) => (
-                    <TagCard id='tag-card-css' tag={ tag } key={ tag.id } />
-                ))}
+        <div id='landing-page-container'>
+            <div id='tag-search-container'>
+                <div id='explore-tags-text'>
+                    <h3>
+                        Explore Tags
+                    </h3>
+                </div>
+                <div id='tags-container'>
+                    {tags?.map((tag) => (
+                        <TagCard id='tag-card-css' tag={ tag } key={ tag.id } />
+                    ))}
+                </div>
+                {/* <div id='search-bar-container'>
+                    <div id='search-bar'>
+                        <input
+                        placeholder="Search"
+                        ></input>
+                    </div>
+                </div> */}
             </div>
             <div id='posts-container'>
                 {posts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (

@@ -1,12 +1,11 @@
 /* TODO Add site wide styles */
 
 img{
-    height: 200px;
     width: 200px;
 }
 
 body{
-    background: linear-gradient(to bottom, #270f52, #2e2e2e 20%);
+    background: linear-gradient(to bottom, #270f52, #2e2e2e 50%);
     background-repeat: no-repeat;
     margin: 0;
     color: white;
@@ -15,6 +14,7 @@ body{
 
 a{
     color: white;
+    text-decoration: none;
 }
 
 #errors-container{

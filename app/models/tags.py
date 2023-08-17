@@ -9,10 +9,12 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
     tagline = db.Column(db.String(255), nullable=False)
+    url = db.Column(db.String(255), nullable=True)
 
     def to_dict(self):
         return {
             "id": self.id,
             "title": self.title,
             "tagline": self.tagline,
+            "url": self.url
         }
