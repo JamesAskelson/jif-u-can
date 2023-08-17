@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import PostCard from "../PostCard";
 import { Link } from "react-router-dom";
-
+import './TagPosts.css'
+import { getAllTagsThunk } from "../../store/tags";
+import { getAllPostsThunk } from "../../store/posts";
 
 export default function TagPosts() {
     const dispatch = useDispatch()
@@ -12,18 +14,31 @@ export default function TagPosts() {
     const posts = Object.values(postsData)
     const tagsData = useSelector((store) => store.tags)
     const tag = tagsData[id];
-    const tagPosts = posts.filter((post) => post.tag_id === tag.id)
-    console.log(posts)
+    console.log('posts', posts)
     console.log('tag', tag)
-    console.log("tagposts", tagPosts)
+    console.log()
+    const tagPosts = posts.filter((post) => post.tag_id === tag?.id)
+
+
+    useEffect(() => {
+        // MEGATHUNKADONK
+        if (!Object.values(postsData).length || !Object.values(tagsData).length) {
+          async function fetchData() {
+            await dispatch(getAllPostsThunk());
+            await dispatch(getAllTagsThunk());
+          }
+          fetchData();
+        }
+      }, [dispatch]);
+
     return (
-            <div id=''>
+            <div id='hmm'>
                 <div>
                     <h1>
-                        {tag.title}
+                        {tag?.title}
                     </h1>
                     <h3>
-                        {tag.tagline}
+                        {tag?.tagline}
                     </h3>
                 </div>
                 <div>

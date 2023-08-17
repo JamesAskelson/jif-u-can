@@ -31,51 +31,57 @@ function SignupFormModal() {
 
 	return (
 		<>
-			<h1>Sign Up</h1>
+		<div id='signup-modal-container'>
+			<div id='signup-title'>
+				<h1>Sign Up</h1>
+			</div>
+			<hr id='login-title-hr'/>
 			<form onSubmit={handleSubmit}>
-				<ul>
-					{errors.map((error, idx) => (
-						<li key={idx}>{error}</li>
-					))}
-				</ul>
-				<label>
-					Email
-					<input
-						type="text"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Username
-					<input
-						type="text"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Password
-					<input
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Confirm Password
-					<input
-						type="password"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<button type="submit">Sign Up</button>
+			<div id='errors-container'>
+				{errors.map((error, idx) => (
+					<span id='error' key={idx}>{error}</span>
+				))}
+        	</div>
+				<div id='signup-info-container'>
+
+						<input
+							type="text"
+							value={username}
+							placeholder="Username"
+							onChange={(e) => setUsername(e.target.value)}
+							required
+						/>
+
+						<input
+							type="text"
+							value={email}
+							placeholder="Email"
+							onChange={(e) => setEmail(e.target.value)}
+							required
+						/>
+
+						<input
+							type="password"
+							value={password}
+							placeholder="Password"
+							onChange={(e) => setPassword(e.target.value)}
+							required
+						/>
+
+						<input
+							type="password"
+							value={confirmPassword}
+							placeholder="Confirm Password"
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							required
+						/>
+				</div>
+				<hr id='login-title-hr'/>
+				<div id='signup-submit-button'>
+					<button type="submit">Sign Up</button>
+				</div>
 			</form>
+		</div>
 		</>
 	);
 }

@@ -52,7 +52,7 @@ export default function AddCommentForm({ user, post }) {
                 <div>
                     <textarea
                         id='new-comment-text-input'
-                        placeholder="Write a comment"
+                        placeholder="Write a comment (max length: 255)"
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                     />

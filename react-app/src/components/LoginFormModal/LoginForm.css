@@ -1,0 +1,96 @@
+#login-modal-container{
+    display: flex;
+    flex-direction: column;
+}
+
+#login-title-container{
+    display: flex;
+    justify-content: center;
+}
+
+#login-title-hr{
+    width:80%;
+}
+
+#demo-hr{
+    width:80%;
+}
+
+
+#login-info-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0px 10px 10px 10px;
+}
+
+#email-info{
+    display: flex;
+    flex-direction: column;
+}
+
+#email-info>input{
+    border: none;
+    border-radius: 5px;
+    height: 30px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(20, 20, 20);
+    padding-left: 10px;
+}
+
+#password-info{
+    display: flex;
+    padding: 0px;
+    gap: 19%;
+}
+
+#password-input>input{
+    border: none;
+    height: 30px;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(20, 20, 20);
+    padding-left: 10px;
+}
+
+#login-submit-button>button{
+  font-family: "Proxima Nova Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-weight: bold;
+  height: 30px;
+  width: 60px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgb(41, 179, 126);
+  color: white;
+  box-shadow: 5px 5px 5px rgb(71, 71, 71);
+}
+
+#login-submit-button>button:hover {
+  cursor: pointer;
+  background-color: rgb(51, 214, 152);
+}
+
+#demo-container{
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+
+#demo-container>button{
+    font-family: "Proxima Nova Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    height: 40px;
+    width: 100px;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(41, 179, 126);
+    color: white;
+    box-shadow: 5px 5px 5px rgb(71, 71, 71);
+}
+
+#demo-container>button:hover{
+    cursor: pointer;
+    background-color: rgb(51, 214, 152);
+}

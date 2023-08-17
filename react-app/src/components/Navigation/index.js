@@ -15,13 +15,20 @@ function Navigation({ isLoaded }){
 		<div id='nav-container'>
 			<div id='nav-links-container'>
 				<div id='nav-links-left'>
-					<NavLink exact to="/">Home</NavLink>
-					{sessionUser && (
-						<OpenModalButton
-							className="post-modal-button"
-							buttonText="New Post"
-							modalComponent={<AddPostModal user={sessionUser} />}
+					<NavLink id='home-img-container' exact to="/">
+						<img
+						className='home-img'
+						src='https://aws-starter-bucket123.s3.amazonaws.com/jif-u-can-home-icon.png'
 						/>
+						</NavLink>
+					{sessionUser && (
+						<div id='post-modal-button-container'>
+							<OpenModalButton
+								className="post-modal-button"
+								buttonText="+ New Post"
+								modalComponent={<AddPostModal user={sessionUser} />}
+							/>
+						</div>
 					)}
 				</div>
 				<div id='nav-links-middle'>
@@ -29,10 +36,12 @@ function Navigation({ isLoaded }){
 				</div>
 				<div id='nav-links-right'>
 					{sessionUser && (
-						<p>{sessionUser.username}</p>
+						<span>{sessionUser.username}</span>
 					)}
 					{isLoaded && (
-						<ProfileButton user={sessionUser} />
+						<div id='profile-button'>
+							<ProfileButton user={sessionUser} />
+						</div>
 					)}
 				</div>
 			</div>

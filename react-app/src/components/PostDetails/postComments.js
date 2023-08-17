@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { deleteCommentThunk } from "../../store/posts";
 import EditCommentModal from "../EditCommentModal";
 import OpenModalButton from "../OpenModalButton";
-
+import './postComments.css'
 
 export default function PostComments ({ comment, post, sessionUser }) {
     const dispatch = useDispatch();
@@ -19,6 +19,12 @@ export default function PostComments ({ comment, post, sessionUser }) {
             </div>
             <div>
                 {comment?.text}
+            </div>
+            <div id='comment-img-container'>
+                {comment?.url && <img
+                className="comment-img"
+                src={comment.url}
+                />}
             </div>
                 <div>
                 {sessionUser && sessionUser.id === comment.user_id && <OpenModalButton

@@ -8,6 +8,7 @@ import DeletePostModal from "../DeletePostModal";
 import AddCommentForm from "./addCommentForm";
 import EditCommentModal from "../EditCommentModal";
 import PostComments from "./postComments";
+import './PostDetails.css'
 
 
 export default function PostDetails() {

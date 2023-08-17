@@ -21,36 +21,55 @@ function LoginFormModal() {
     }
   };
 
+  async function demoLogin(){
+    await dispatch(login('demo@aa.io','password'));
+    closeModal();
+  }
+
   return (
-    <>
-      <h1>Log In</h1>
+    <div id='login-modal-container'>
+      <div id='login-title-container'>
+        <h1>Log In</h1>
+      </div>
+      <hr id='login-title-hr'/>
       <form onSubmit={handleSubmit}>
-        <ul>
+        <div id='errors-container'>
           {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
+            <span id='error' key={idx}>{error}</span>
           ))}
-        </ul>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        <button type="submit">Log In</button>
+        </div>
+        <div id='login-info-container'>
+          <div id='email-info'>
+            <input
+              type="text"
+              value={email}
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div id='password-info'>
+            <div id='password-input'>
+              <input
+                type="password"
+                id='password'
+                value={password}
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div id="login-submit-button">
+              <button type="submit">Log In</button>
+            </div>
+          </div>
+        </div>
       </form>
-    </>
+      <hr id='demo-hr'/>
+      <div id='demo-container'>
+        <button onClick={()=>demoLogin()}>Demo User</button>
+      </div>
+    </div>
   );
 }
 
