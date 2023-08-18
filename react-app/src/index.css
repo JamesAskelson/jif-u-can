@@ -30,8 +30,8 @@ a{
 }
 
 #error{
-    width: 100%;
-    color: rgb(173, 0, 0);
+    width: 80%;
+    color: rgb(207, 0, 0);
     font-weight: bold;
     list-style: none;
     font-size: 14px;
@@ -41,4 +41,8 @@ a{
 
 button{
     font-family: sans-serif;
+}
+
+#new-post-label{
+    padding-bottom: 10px;
 }

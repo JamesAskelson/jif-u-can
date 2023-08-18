@@ -28,7 +28,10 @@ export default function EditPostModal({ user, post }) {
         if(!title) errors.title = "Title is required";
         if(title.length < 10 || title.length > 100) errors.title = "Title must be between 10 and 100 characters long";
         if(!graphic) errors.graphic = "All posts must contain an image or gif";
-        if(!urlCheck(graphic)) errors.graphic = "All graphics must be in an image or gif format (.jgp, .png, .jpeg, .gif)";
+        if(graphic){
+            if(!urlCheck(graphic)) errors.graphic = "All graphics must be in an image or gif format (.jgp, .png, .jpeg, .gif)";
+        }
+
 
         setErrorValidation({...errors});
 
@@ -68,10 +71,26 @@ export default function EditPostModal({ user, post }) {
 
     return (
         <div id="new-post-form-container">
+            <div id='new-post-title'>
+                <h1>Edit Post</h1>
+            </div>
+            <hr id='login-title-hr'/>
             <form id="new-post-form" >
                 <div id='new-post-info'>
-                        {hasSubmitted && errorValidation.title}
+
+                    <div>
+                        {hasSubmitted && <span id='error'>{errorValidation.title}</span>}
+                    </div>
+                    <div>
+                        {hasSubmitted && <span id='error'>{errorValidation.graphic}</span>}
+                    </div>
+                    <div>
+                        {hasSubmitted && <span id='error'>{errorValidation.hidden}</span>}
+                    </div>
                     <div id='new-post-title'>
+                        <div id='new-post-label'>
+                            <label>Title</label>
+                        </div>
                         <input
                             id='new-post-title-input'
                             type='text'
@@ -80,17 +99,22 @@ export default function EditPostModal({ user, post }) {
                             onChange={(e) => setTitle(e.target.value)}
                         />
                     </div>
-                        {hasSubmitted && errorValidation.graphic}
+
+
+
                     <div id='new-post-graphic'>
+                        <div id='new-post-label'>
+                            <label>Graphic</label>
+                        </div>
                         <input
                             id='new-post-graphic-input'
                             type='text'
-                            placeholder='graphic url'
+                            placeholder='Graphic url'
                             value={graphic}
                             onChange={(e) => setGraphic(e.target.value)}
                         />
-
                     </div>
+
                     <div id='new-post-graphic-preview'>
                         {graphic && (
                                 <img
@@ -99,9 +123,12 @@ export default function EditPostModal({ user, post }) {
                                 />
                             )}
                     </div>
-                        {hasSubmitted && errorValidation.description}
+
                     <div id='new-post-description'>
-                        <input
+                        <div id='new-post-label'>
+                            <label>Description (optional)</label>
+                        </div>
+                        <textarea
                             id='new-post-description-input'
                             type='text'
                             placeholder="Add a description"
@@ -109,6 +136,7 @@ export default function EditPostModal({ user, post }) {
                             onChange={(e) => setDescription(e.target.value)}
                         />
                     </div>
+
                     <div id='new-post-tag'>
                         <lable>Pick your Tag</lable>
                         <select
@@ -123,13 +151,15 @@ export default function EditPostModal({ user, post }) {
                             <option value={5}>Nature</option>
                         </select>
                     </div>
-                    {hasSubmitted && errorValidation.hidden}
-                    <div id='new-post-hidden'>
 
+
+
+                    <div id='new-post-hidden'>
                         <label>
 							Do you want your post to be hidden?
 						</label>
-							<input
+                        <div id='new-post-label'>
+                        <input
 								type="radio"
 								value={true}
 								name="yes-no"
@@ -143,7 +173,9 @@ export default function EditPostModal({ user, post }) {
 								onChange={(e) => setHidden(false)}
                                 checked={!hidden}
 							/> No
+                        </div>
                     </div>
+                    <hr id='login-title-hr'/>
                     <div id='new-post-submit'>
                             <button type='submit' onClick={handleSubmit} id='new-post-submit-button'>
                                 Submit

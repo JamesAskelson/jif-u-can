@@ -35,6 +35,12 @@ export default function PostDetails() {
     console.log('user info', post?.user)
 
 
+    const goToTop = () => {
+        window.scrollTo({
+            top: 0
+        });
+    }
+
     useEffect(() => {
         // MEGATHUNKADONK
         if (!Object.values(postsData).length || !Object.values(post).length) {
@@ -117,7 +123,7 @@ export default function PostDetails() {
             </div>
             <div id='posts-container'>
                 {posts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
-                    <Link to={`/posts/${post.id}`} title={post.title}>
+                    <Link onClick={goToTop()} to={`/posts/${post.id}`} title={post.title}>
                         <PostCard post={post} key={post.id} />
                     </Link>
                 ))}

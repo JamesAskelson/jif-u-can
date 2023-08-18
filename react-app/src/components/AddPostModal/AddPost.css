@@ -1,0 +1,107 @@
+#new-post-form-container{
+    width: 600px;
+}
+
+#new-post-form-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#new-post-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#new-post-label{
+    display: flex;
+    justify-content: center;
+}
+
+#new-post-title{
+    padding: 20px 0px;
+}
+
+#new-post-title>input{
+    height: 30px;
+    width: 100%;
+    background-color: rgb(20, 20, 20);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+#new-post-graphic{
+    padding-bottom: 20px;
+}
+
+#new-post-graphic>input{
+    height: 30px;
+    width: 100%;
+    background-color: rgb(20, 20, 20);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+#new-post-graphic-preview{
+    padding-bottom: 20px;
+}
+
+#new-post-graphic-preview>img{
+    max-width: 150px;
+    max-height: 200px;
+}
+
+#new-post-description{
+    width: 120%;
+    padding-bottom: 20px;
+}
+
+#new-post-description>textarea{
+    height: 30px;
+    min-width: 100%;
+    max-width: 200px;
+    min-height: 100px;
+    max-height: 200px;
+    background-color: rgb(20, 20, 20);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+#new-post-tag{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 20px;
+}
+
+#new-post-tag>select{
+    height: 30px;
+    background-color: rgb(20, 20, 20);
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+#new-post-submit{
+    padding: 20px 0px;
+}
+
+#new-post-submit>button{
+    font-family: "Proxima Nova Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    height: 30px;
+    width: 80px;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(41, 179, 126);
+    color: white;
+    box-shadow: 5px 5px 5px rgb(71, 71, 71);
+}

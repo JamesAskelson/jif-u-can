@@ -11,16 +11,22 @@ import './Navigation.css';
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
 
+	const goToTop = () => {
+        window.scrollTo({
+            top: 0
+        });
+    }
+
 	return (
 		<div id='nav-container'>
 			<div id='nav-links-container'>
 				<div id='nav-links-left'>
-					<NavLink id='home-img-container' exact to="/">
+					<NavLink onClick={goToTop} id='home-img-container' exact to="/">
 						<img
 						className='home-img'
 						src='https://aws-starter-bucket123.s3.amazonaws.com/jif-u-can-home-icon.png'
 						/>
-						</NavLink>
+					</NavLink>
 					{sessionUser && (
 						<div id='post-modal-button-container'>
 							<OpenModalButton

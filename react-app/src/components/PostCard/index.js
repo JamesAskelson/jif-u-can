@@ -3,7 +3,7 @@ import './PostCard.css'
 
 export default function PostCard({ post }) {
     const postComments = post?.post_comments.length
-    console.log(postComments)
+
     return (
         <div id='post-card-container'>
             <div id='post-card-image'>
