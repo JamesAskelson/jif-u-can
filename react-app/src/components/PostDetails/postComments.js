@@ -14,33 +14,43 @@ export default function PostComments ({ comment, post, sessionUser }) {
 
     return (
         <div>
-            <div>
-                {comment.user?.username} • {dayDiff === 0 ? "Today" : `${dayDiff} days ago`}
+            <div id='post-comment'>
+                <div id='comment-username-date'>
+                    <div id='comment-username'>
+                        {comment.user?.username}
+                    </div>
+                    <div>
+                    • {dayDiff === 0 ? "Today" : `${dayDiff} days ago`}
+                    </div>
+
+                </div>
+                <div id='comment-text'>
+                    {comment?.text && comment?.text}
+                </div>
+                <div id='comment-img-container'>
+                    {comment?.url && <img
+                    className="comment-img"
+                    src={comment.url}
+                    />}
+                </div>
+                <div id='comment-buttons'>
+                    {sessionUser && sessionUser.id === comment.user_id && <OpenModalButton
+                        className="edit-modal-button"
+                        buttonText="Edit"
+                        modalComponent={<EditCommentModal post={post} user={sessionUser} comment={comment}/>}
+                    />}
+                    {sessionUser && sessionUser?.id === comment?.user_id &&
+                    <button
+                        onClick={() => {
+                            dispatch(deleteCommentThunk(post.id, comment.id));
+                        }}
+                    >
+                        Delete
+                    </button>}
+                </div>
+
             </div>
-            <div>
-                {comment?.text}
-            </div>
-            <div id='comment-img-container'>
-                {comment?.url && <img
-                className="comment-img"
-                src={comment.url}
-                />}
-            </div>
-                <div>
-                {sessionUser && sessionUser.id === comment.user_id && <OpenModalButton
-                    className="edit-modal-button"
-                    buttonText="Edit"
-                    modalComponent={<EditCommentModal post={post} user={sessionUser} comment={comment}/>}
-                />}
-                {sessionUser && sessionUser?.id === comment?.user_id &&
-                <button
-                    onClick={() => {
-                        dispatch(deleteCommentThunk(post.id, comment.id));
-                    }}
-                >
-                    Delete
-                </button>}
-            </div>
+            <hr id='comments-hr'/>
         </div>
     )
 }

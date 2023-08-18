@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 3ea5ce97dc3b
+Revision ID: b09792d71411
 Revises:
-Create Date: 2023-08-17 18:31:49.901003
+Create Date: 2023-08-18 12:35:04.807477
 
 """
 from alembic import op
@@ -12,8 +12,9 @@ import os
 environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
+
 # revision identifiers, used by Alembic.
-revision = '3ea5ce97dc3b'
+revision = 'b09792d71411'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -66,17 +67,13 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('post_id', sa.Integer(), nullable=True),
-    sa.Column('text', sa.String(length=255), nullable=False),
+    sa.Column('text', sa.String(length=255), nullable=True),
     sa.Column('url', sa.String(length=255), nullable=True),
     sa.Column('created_date', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['post_id'], ['posts.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-
-    if environment == "production":
-        op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
-
     op.create_table('postgraphics',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('post_id', sa.Integer(), nullable=True),
@@ -86,8 +83,7 @@ def upgrade():
     )
 
     if environment == "production":
-        op.execute(f"ALTER TABLE postgraphics SET SCHEMA {SCHEMA};")
-        
+        op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 

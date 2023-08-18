@@ -100,12 +100,11 @@ export default function PostDetails() {
                     </div>
                 </div>
                 <div id='post-comments-whole-container'>
-                    <div>
-                        {sessionUser && <AddCommentForm user={sessionUser} post={post}/>}
-                    </div>
+                    {sessionUser && <AddCommentForm user={sessionUser} post={post}/>}
                     <div id='post-num-comments'>
                         {comments?.length} Comments
                     </div>
+                    <hr id='comments-hr'/>
                     <div id='post-comments-container'>
                         {comments.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((comment) => (
                             <PostComments comment={comment} post={post} sessionUser={sessionUser}/>

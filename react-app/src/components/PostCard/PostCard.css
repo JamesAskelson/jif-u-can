@@ -4,6 +4,7 @@
     background-color: rgb(34, 34, 34);
     border-radius: 6px;
     margin-bottom: 10px;
+    break-inside: avoid;
 }
 
 #post-card-image>img{
@@ -12,9 +13,18 @@
 
 #post-card-info{
     padding: 5%;
+    break-inside: avoid;
 }
 
 #post-card-title{
+    display: flex;
+    justify-content: center;
     font-weight: bold;
     font-size: 13px;
+    padding-bottom: 10px;
+}
+
+#post-card-total-comments{
+    display: flex;
+    justify-content: center;
 }

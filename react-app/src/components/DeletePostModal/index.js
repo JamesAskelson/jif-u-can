@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux"
 import { useModal } from "../../context/Modal"
 import { deleteExistingPost, getAllPostsThunk } from "../../store/posts"
 import { useHistory } from "react-router-dom"
-
+import './DeletePost.css'
 
 
 export default function DeletePostModal({ post }) {
@@ -24,12 +24,26 @@ export default function DeletePostModal({ post }) {
 
     return (
         <div id="delete-post-modal-main-container">
-            <div className="">
-                <h2>Confirm Delete</h2>
-                <h3>Are you sure you want to delete this post? Once you click yes, it is irreversable</h3>
-                <div className="modal-buttons-container">
-                    <button onClick={handleDeletePost}>Yes (Delete Post)</button>
-                    <button onClick={handleCloseModal}>No</button>
+            <div id="delete-post-modal-text">
+                <div>
+                    <h2>Confirm Delete</h2>
+                </div>
+                <hr id='delete-post-hr'/>
+                <div id=''>
+                    <div id='delete-post-modal-text-1'>
+                        <h3>Are you sure you want to delete this post? </h3>
+                    </div>
+                    <div id='delete-post-modal-text-2'>
+                        (Once you click yes, it is irreversable)
+                    </div>
+                </div>
+            </div>
+            <div id="delete-post-modal-buttons">
+                <div>
+                    <button onClick={handleDeletePost}>Delete this post</button>
+                </div>
+                <div>
+                    <button onClick={handleCloseModal}>Keep post</button>
                 </div>
             </div>
         </div>

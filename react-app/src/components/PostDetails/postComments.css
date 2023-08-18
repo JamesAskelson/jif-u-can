@@ -1,8 +1,53 @@
-#post-comments{
-    width: fit-content;
+#post-comment{
+    width: 100%;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#post-comment:hover{
+    background-color: rgb(54, 54, 54);
+    border-radius: 10px;
+}
+
+#comment-username-date{
+    display: flex;
+    gap: 5px;
+    padding-bottom: 10px;
+}
+
+#comment-username{
+    color: green
 }
 
 #comment-img-container>img{
     max-width: 100px;
     max-height: 100px;
+}
+
+#comment-text{
+    padding-bottom: 10px;
+}
+
+#comment-buttons{
+    display: flex;
+    gap: 20px;
+}
+
+#comment-buttons>button{
+    font-family: "Proxima Nova Regular","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    height: 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(41, 179, 126);
+    color: white;
+    box-shadow: 5px 5px 5px rgb(71, 71, 71);
+}
+
+#comment-buttons>button:hover{
+
+        cursor: pointer;
+        background-color: rgb(51, 214, 152);
+   
 }

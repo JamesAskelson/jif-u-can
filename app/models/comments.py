@@ -11,7 +11,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
     post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("posts.id")))
-    text = db.Column(db.String(255), nullable=False)
+    text = db.Column(db.String(255), nullable=True)
     url = db.Column(db.String(255), nullable=True)
     created_date = db.Column(db.DateTime, default=datetime.utcnow)
 

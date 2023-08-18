@@ -12,7 +12,7 @@ export default function AddCommentForm({ user, post }) {
 
     useEffect(() => {
         errorChecking()
-    }, [text])
+    }, [text, url])
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -35,8 +35,15 @@ export default function AddCommentForm({ user, post }) {
     const errorChecking = () => {
         const errors = {}
 
-        if(!text) errors.text = "Text is required"
-        if(text.length > 255) errors.text = "Text must be less than 255 chars"
+
+        if (text && text.length > 255) {
+            errors.text = "Text must be less than 255 chars";
+        }
+
+        if (url && !urlCheck(url)) {
+            errors.url = "Any url must end with .jpg, .png, .jpeg, or .gif";
+        }
+
         setErrorValidation({...errors})
     }
 
@@ -49,7 +56,7 @@ export default function AddCommentForm({ user, post }) {
     return (
         <div id='new-comments-form-container'>
             <form id='new-comment-form'>
-                <div>
+                <div id='new-comment-text'>
                     <textarea
                         id='new-comment-text-input'
                         placeholder="Write a comment (max length: 255)"
@@ -57,20 +64,34 @@ export default function AddCommentForm({ user, post }) {
                         onChange={(e) => setText(e.target.value)}
                     />
                 </div>
-                <div>
-                    <input
-                        id='new-comment-url-input'
-                        placeholder="Add a gif or image"
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
-                    />
-                    <button
-                        type='submit'
-                        onClick={handleSubmit}
-                        disabled={Object.values(errorValidation).length > 0}
-                        id='new-post-submit-button'>
-                        Submit
-                    </button>
+                <div id='new-comment-img-submit'>
+                    <div id='new-comment-img'>
+                        <div id='new-comment-img-input'>
+                            <input
+                                id='new-comment-url-input'
+                                placeholder="Add a gif or image"
+                                value={url}
+                                onChange={(e) => setUrl(e.target.value)}
+                            />
+                        </div>
+                        <div id='new-comment-graphic-preview'>
+                            {url && (
+                                    <img
+                                        id="new-post-graphic-container"
+                                        src={url}
+                                    />
+                                )}
+                        </div>
+                    </div>
+                    <div id='new-comment-submit-button'>
+                        <button
+                            type='submit'
+                            onClick={handleSubmit}
+                            disabled={!text && !url || Object.values(errorValidation).length > 0}
+                            id='new-post-submit-button'>
+                            Submit
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
