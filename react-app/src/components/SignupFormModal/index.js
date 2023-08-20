@@ -17,15 +17,25 @@ function SignupFormModal() {
 		e.preventDefault();
 		if (password === confirmPassword) {
 			const data = await dispatch(signUp(username, email, password));
+			console.log('data', data)
 			if (data) {
 				setErrors(data);
 			} else {
 				closeModal();
 			}
-		} else {
-			setErrors([
-				"Confirm Password field must be the same as the Password field",
-			]);
+		}
+
+		if(password !== confirmPassword) {
+			const data = await dispatch(signUp(username, email, password));
+			console.log('data', data)
+			const diffPass = ["Confirm Password field must be the same as the Password field"]
+			if (data) {
+				setErrors([...data, ...diffPass]);
+			} else {
+				setErrors([
+					"Confirm Password field must be the same as the Password field",
+				]);
+			}
 		}
 	};
 
@@ -39,7 +49,7 @@ function SignupFormModal() {
 			<form onSubmit={handleSubmit}>
 			<div id='errors-container'>
 				{errors.map((error, idx) => (
-					<span id='error' key={idx}>{error}</span>
+					<span id='signup-error' key={idx}>{error}</span>
 				))}
         	</div>
 				<div id='signup-info-container'>

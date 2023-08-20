@@ -7,34 +7,21 @@ import './addCommentForm.css'
 export default function AddCommentForm({ user, post }) {
     const dispatch = useDispatch();
     const [errorValidation, setErrorValidation] = useState({});
+    const [hasSubmitted, setHasSubmitted] = useState(false)
     const [text, setText] = useState("");
     const [url, setUrl] = useState("");
 
-    useEffect(() => {
-        errorChecking()
-    }, [text, url])
+    // useEffect(() => {
+    //     errorChecking()
+    // }, [text, url])
 
     async function handleSubmit(e) {
         e.preventDefault();
-        let data = {
-            user_id: user.id,
-            post_id: post.id,
-            text,
-            url
-        }
-        dispatch(addCommentToPostThunk(data))
-        dispatch(getAllPostsThunk())
-        reset()
-    }
+        setHasSubmitted(true);
 
-    function reset() {
-        setText("");
-        setUrl("");
-    }
-
-    const errorChecking = () => {
         const errors = {}
 
+        if(!text && !url) errors.general = "Comment must have either text or an image/gif"
 
         if (text && text.length > 255) {
             errors.text = "Text must be less than 255 chars";
@@ -45,7 +32,29 @@ export default function AddCommentForm({ user, post }) {
         }
 
         setErrorValidation({...errors})
+
+        console.log('errors', errors)
+        if(!Object.values(errors).length){
+            let data = {
+                user_id: user.id,
+                post_id: post.id,
+                text,
+                url
+            }
+            dispatch(addCommentToPostThunk(data))
+            dispatch(getAllPostsThunk())
+            reset()
+        }
     }
+
+    function reset() {
+        setText("");
+        setUrl("");
+    }
+
+    // const errorChecking = () => {
+
+    // }
 
     const urlCheck = (url) => {
         return (
@@ -63,6 +72,11 @@ export default function AddCommentForm({ user, post }) {
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                     />
+                </div>
+                <div>
+                    {hasSubmitted && <span id='comment-error'>{errorValidation.general}</span>}
+                    {hasSubmitted && <span id='comment-error'>{errorValidation.text}</span>}
+                    {hasSubmitted && <span id='comment-error'>{errorValidation.url}</span>}
                 </div>
                 <div id='new-comment-img-submit'>
                     <div id='new-comment-img'>
@@ -87,7 +101,7 @@ export default function AddCommentForm({ user, post }) {
                         <button
                             type='submit'
                             onClick={handleSubmit}
-                            disabled={!text && !url || Object.values(errorValidation).length > 0}
+                            // disabled={!text && !url}
                             id='new-post-submit-button'>
                             Submit
                         </button>

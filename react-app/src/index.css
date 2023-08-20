@@ -39,6 +39,29 @@ a{
     word-break: break-word;
 }
 
+#signup-error{
+    width: 100%;
+    color: rgb(207, 0, 0);
+    font-weight: bold;
+    list-style: none;
+    font-size: 14px;
+    word-wrap: break-word;
+    word-break: break-word;
+    padding-bottom: 2px;
+}
+
+#comment-error{
+    width: 100%;
+    color: rgb(207, 0, 0);
+    font-weight: bold;
+    list-style: none;
+    font-size: 14px;
+    word-wrap: break-word;
+    word-break: break-word;
+    padding-bottom: 2px;
+    padding-left: 5px;
+}
+
 button{
     font-family: sans-serif;
 }
