@@ -1,9 +1,32 @@
 #comment-card-container{
     display: flex;
-
+    gap: 10px;
+    padding-bottom: 20px;
 }
 
 #comment-card-image-container>img{
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 10px;
+}
+
+#comment-card-info-container{
+    width: 80%;
+    background-color: rgb(77, 77, 77);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#comment-card-img-container{
+    padding-top: 10px;
+}
+
+#comment-card-img-container>img{
     max-width: 100px;
     max-height: 100px;
+}
+
+#comment-card-date{
+    color: rgb(151, 151, 151);
+    padding-top: 10px;
 }

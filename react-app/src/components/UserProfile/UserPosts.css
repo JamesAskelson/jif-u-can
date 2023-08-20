@@ -1,0 +1,14 @@
+#user-posts-nav-container{
+    padding: 10px 11%;
+}
+
+
+#user-posts-container{
+    columns: 5;
+    column-gap: 15px;
+    padding: 15px;
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow-x: hidden;
+    margin: 0 10%;
+}

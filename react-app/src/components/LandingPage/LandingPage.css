@@ -1,8 +1,12 @@
 #landing-page-container{
     min-height: 100vh;
+
 }
 
-
+#tag-search-container{
+    background-image: url('https://aws-starter-bucket123.s3.amazonaws.com/imgur-background.png');
+    height: 300px;
+}
 
 #explore-tags-text{
     display: flex;

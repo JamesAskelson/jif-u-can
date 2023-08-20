@@ -5,7 +5,7 @@ import UserPosts from "./UserPosts"
 import UserComments from "./UserComments"
 import { getAllPostsThunk } from "../../store/posts"
 import { getUserCommentsThunk } from "../../store/comments"
-
+import './UserProfile.css'
 
 
 export default function UserProfile() {
@@ -40,18 +40,26 @@ export default function UserProfile() {
         history.push("/")
     }
     return (
-        <div>
-            <h1>
-                {sessionUser.username}
-            </h1>
-            <div id="switch-view-container">
-                <button onClick={() => handleView("posts")}>Posts</button>
-                {/* <button onClick={() => handleView("favorites")}>Favorites</button> */}
-                <button onClick={() => handleView("comments")}>Comments</button>
+        <div id='user-profile'>
+            <div id='user-profile-main'>
+                <div id='user-profile-title'>
+                    <img
+                    src='https://aws-starter-bucket123.s3.amazonaws.com/CD6nVjA.png'
+                    alt='default user pfp'
+                    />
+                    <h1>
+                        {sessionUser.username}
+                    </h1>
+                </div>
+                <div id="switch-view-container">
+                    <button className={view === "posts" ? "active" : ""} onClick={() => handleView("posts")}>Posts</button>
+                    {/* <button onClick={() => handleView("favorites")}>Favorites</button> */}
+                    <button className={view === "comments" ? "active" : ""} onClick={() => handleView("comments")}>Comments</button>
+                </div>
             </div>
             {view === "posts" && <UserPosts posts={userPosts} />}
             {/* {view === "favorites" && <Favorites />} */}
-            {view === "comments" && <UserComments posts={postsArr} comments={userComments}/>}
+            {view === "comments" && <UserComments user={sessionUser} posts={postsArr} comments={userComments}/>}
         </div>
     )
 }

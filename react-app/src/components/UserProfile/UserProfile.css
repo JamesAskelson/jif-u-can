@@ -1,0 +1,49 @@
+#user-profile{
+    min-height: 100vh;
+}
+
+
+#user-profile-main{
+    height: 300px;
+    background-image: url('https://aws-starter-bucket123.s3.amazonaws.com/imgur-background.png');
+    padding: 0 10%;
+}
+
+#user-profile-title{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    height: 200px;
+}
+
+#user-profile-title>h1{
+    margin: 0;
+    font-size: 48px;
+}
+
+#user-profile-title>img{
+    width: 100px;
+    border-radius: 50px;
+}
+
+#switch-view-container{
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: 20px;
+}
+
+#switch-view-container>button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px 16px;
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+
+#switch-view-container>button.active {
+    border-bottom: 2px solid #ffffff;
+}

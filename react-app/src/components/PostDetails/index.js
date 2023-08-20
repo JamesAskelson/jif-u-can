@@ -20,6 +20,7 @@ export default function PostDetails() {
     const sessionUser = useSelector((store) => store.session.user);
     const postsData = useSelector((store) => store.posts);
     const posts = Object.values(postsData)
+    const publicPosts = posts.filter(post => post.hidden === false)
     const post = postsData[id];
     const photos = post?.post_graphic;
     const comments = post?.post_comments
@@ -54,7 +55,7 @@ export default function PostDetails() {
     if (!post) return <></>;
 
     return (
-        <div>
+        <div id='post-details-outer'>
             <h3 onClick={() => history.goBack()} id="breadcrumb">
                 {"< Go Back"}
             </h3>
@@ -122,8 +123,8 @@ export default function PostDetails() {
                 EXPLORE POSTS
             </div>
             <div id='posts-container'>
-                {posts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
-                    <Link onClick={goToTop()} to={`/posts/${post.id}`} title={post.title}>
+                {publicPosts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
+                    <Link onClick={goToTop} to={`/posts/${post.id}`} title={post.title}>
                         <PostCard post={post} key={post.id} />
                     </Link>
                 ))}

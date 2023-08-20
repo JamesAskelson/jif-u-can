@@ -1,0 +1,8 @@
+#user-comments-container{
+    margin: 0 30%;
+    padding-bottom: 20px;
+}
+
+#user-comments-container>div{
+    width: 80%;
+}

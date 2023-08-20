@@ -1,3 +1,13 @@
+#post-details-outer{
+    background-image: url('https://aws-starter-bucket123.s3.amazonaws.com/imgur-background.png');
+    background-repeat: repeat-x;
+}
+
+#post-details-outer>h3{
+    padding-top: 20px;
+    margin: 0;
+}
+
 #post-details{
     min-height: 100vh;
 }
@@ -115,4 +125,3 @@
     font-size: 20px;
     font-weight: bold;
 }
-

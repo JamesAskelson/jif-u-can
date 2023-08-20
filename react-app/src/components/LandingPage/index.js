@@ -14,6 +14,8 @@ export default function Landing() {
     const tagsData = useSelector((store) => store.tags)
     const tags = Object.values(tagsData)
     const posts = Object.values(postsData)
+    const publicPosts = posts.filter(post => post.hidden === false)
+    console.log('public posts', publicPosts)
 
     useEffect(() => {
         // MEGATHUNKADONK
@@ -49,7 +51,7 @@ export default function Landing() {
                 </div> */}
             </div>
             <div id='posts-container'>
-                {posts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
+                {publicPosts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
                     <Link to={`/posts/${post.id}`} title={post.title}>
                         <PostCard post={post} key={post.id} />
                     </Link>

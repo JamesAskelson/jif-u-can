@@ -33,7 +33,7 @@ export default function TagPosts() {
 
     return (
             <div id='tag-page-container'>
-                <div id='tag-info-container'>
+                <div id='tag-info'>
                     <div id='tag-title-container'>
                         <h1>{tag?.title}</h1>
                     </div>
@@ -44,7 +44,7 @@ export default function TagPosts() {
                         <p>{tagPosts?.length} POSTS</p>
                     </div>
                 </div>
-                <div id='tag-posts-container'>
+                <div id='posts-container'>
                     {tagPosts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
                         <Link to={`/posts/${post.id}`} title={post.title}>
                             <PostCard post={post} key={post.id} />
