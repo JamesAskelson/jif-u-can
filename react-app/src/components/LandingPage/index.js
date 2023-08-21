@@ -17,6 +17,12 @@ export default function Landing() {
     const publicPosts = posts.filter(post => post.hidden === false)
     console.log('public posts', publicPosts)
 
+    const goToTop = () => {
+        window.scrollTo({
+            top: 0
+        });
+    }
+
     useEffect(() => {
         // MEGATHUNKADONK
         if (!Object.values(postsData).length || !Object.values(tagsData).length) {
@@ -52,7 +58,7 @@ export default function Landing() {
             </div>
             <div id='posts-container'>
                 {publicPosts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
-                    <Link to={`/posts/${post.id}`} title={post.title}>
+                    <Link onClick={goToTop} to={`/posts/${post.id}`} title={post.title}>
                         <PostCard post={post} key={post.id} />
                     </Link>
                 ))}

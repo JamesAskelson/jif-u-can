@@ -24,17 +24,31 @@ export default function PostDetails() {
     const post = postsData[id];
     const photos = post?.post_graphic;
     const comments = post?.post_comments
-    console.log('post', post)
-    console.log('comments', comments)
+
 
     const postDate = new Date(post?.created_date)
     const currentDate = new Date()
-    const timeDifference = currentDate.getTime() - postDate.getTime()
-    const dayDiff = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    console.log(dayDiff)
+    const timeDifference = Math.floor(( currentDate - postDate ) / 1000)
 
-    console.log('user info', post?.user)
-
+    let timeAgo = "";
+    if(timeDifference < 60) {
+        timeAgo = 'Just now'
+    } else if (timeDifference < 3600) {
+        const mins = Math.floor(timeDifference / 60);
+        timeAgo = `${mins} ${mins === 1 ? "minute" : "minutess"} ago`;
+    } else if (timeDifference < 86400) {
+        const hours = Math.floor(timeDifference / 3600);
+        timeAgo = `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
+    } else if (timeDifference < 2592000) {
+        const days = Math.floor(timeDifference / 86400);
+        timeAgo = `${days} ${days === 1 ? "day" : "days"} ago`;
+    } else if (timeDifference < 31536000) {
+        const months = Math.floor(timeDifference / 2592000);
+        timeAgo = `${months} ${months === 1 ? "month" : "months"} ago`;
+    } else {
+        const years = Math.floor(timeDifference / 31536000);
+        timeAgo = `${years} ${years === 1 ? "year" : "years"} ago`;
+    }
 
     const goToTop = () => {
         window.scrollTo({
@@ -70,7 +84,7 @@ export default function PostDetails() {
                             <div id='post-detail-user'>
                                 <span>{post?.user?.username}</span>
                                 <div>
-                                    {dayDiff === 0 ? "Today" : `${dayDiff} days ago`}
+                                    {timeAgo}
                                 </div>
                             </div>
                     </div>
