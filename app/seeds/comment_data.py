@@ -169,4 +169,116 @@ comments = [
         "url": None,
         "created_date": datetime(2023, 8, 2)
     },
+    {
+        "user_id": 2,
+        "post_id": 13,
+        "text": "Would hate to be that guy",
+        "url": None,
+        "created_date": datetime(2023, 8, 6)
+    },
+    {
+        "user_id": 3,
+        "post_id": 13,
+        "text": "Just read the signs next time, dude",
+        "url": None,
+        "created_date": datetime(2023, 5, 12)
+    },
+    {
+        "user_id": 1,
+        "post_id": 14,
+        "text": "I'm sorry dude, I still want Prime 4",
+        "url": None,
+        "created_date": datetime(2023, 3, 25)
+    },
+    {
+        "user_id": 3,
+        "post_id": 14,
+        "text": "How could I forget such a CLASSIC title, OP",
+        "url": None,
+        "created_date": datetime(2023, 7, 16)
+    },
+    {
+        "user_id": 2,
+        "post_id": 15,
+        "text": "Making me miss my cat (I'm at work :( )",
+        "url": None,
+        "created_date": datetime(2023, 4, 16)
+    },
+    {
+        "user_id": 1,
+        "post_id": 15,
+        "text": "Good cat right there",
+        "url": None,
+        "created_date": datetime(2023, 5, 1)
+    },
+    {
+        "user_id": 1,
+        "post_id": 16,
+        "text": "Whoa, it looks like some crazy fossil",
+        "url": None,
+        "created_date": datetime(2023, 7, 6)
+    },
+    {
+        "user_id": 2,
+        "post_id": 16,
+        "text": "I agree, that's pretty neat",
+        "url": None,
+        "created_date": datetime(2023, 6, 7)
+    },
+    {
+        "user_id": 1,
+        "post_id": 17,
+        "text": "I wish I could summon duct tape at will too",
+        "url": None,
+        "created_date": datetime(2023, 5, 22)
+    },
+    {
+        "user_id": 3,
+        "post_id": 17,
+        "text": "HELP ME DUCK TAPE WIZARD, I'M DYING OVER HERE",
+        "url": None,
+        "created_date": datetime(2023, 6, 14)
+    },
+    {
+        "user_id": 2,
+        "post_id": 18,
+        "text": "I'm gonna be real with you chief, just use your imagination",
+        "url": None,
+        "created_date": datetime(2023, 2, 6)
+    },
+    {
+        "user_id": 3,
+        "post_id": 18,
+        "text": "I thought I was the only one...",
+        "url": None,
+        "created_date": datetime(2023, 3, 27)
+    },
+    {
+        "user_id": 1,
+        "post_id": 19,
+        "text": "Nice work, this looks like took a lot of dedication",
+        "url": None,
+        "created_date": datetime(2023, 3, 14)
+    },
+    {
+        "user_id": 3,
+        "post_id": 19,
+        "text": "Crazy what you can do with just paper and some lights",
+        "url": None,
+        "created_date": datetime(2023, 3, 17)
+    },
+    {
+        "user_id": 1,
+        "post_id": 20,
+        "text": "Here's hoping I see you at a con one day, greate costume",
+        "url": None,
+        "created_date": datetime(2023, 6, 16)
+    },
+    {
+        "user_id": 3,
+        "post_id": 20,
+        "text": "Killer outfit",
+        "url": None,
+        "created_date": datetime(2023, 6, 29)
+    },
 ]
