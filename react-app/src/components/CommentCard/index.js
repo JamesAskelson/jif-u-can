@@ -8,7 +8,6 @@ export default function CommentCard({ posts, comment }) {
     const currentDate = new Date()
     const timeDifference = Math.floor(( currentDate - commentDate ) / 1000)
     const dayDiff = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    console.log(dayDiff)
 
     let timeAgo = "";
     if(timeDifference < 60) {

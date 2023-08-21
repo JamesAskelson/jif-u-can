@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { editExistingPost, getAllPostsThunk } from "../../store/posts";
 
 export default function EditPostModal({ user, post }) {
@@ -15,7 +15,6 @@ export default function EditPostModal({ user, post }) {
     const [description, setDescription] = useState(post.description);
     const [hidden, setHidden] = useState(post.hidden);
     const [graphic, setGraphic] = useState(post.post_graphic[0].url);
-    console.log('hidden', hidden)
 
     // Submit Handler and Error Checking
 
@@ -44,11 +43,9 @@ export default function EditPostModal({ user, post }) {
                 hidden: Number(hidden),
                 graphic
             }
-            console.log('data', data)
 
             const newPostId = await dispatch(editExistingPost(data, post.id));
             dispatch(getAllPostsThunk())
-            console.log('newpostid',newPostId)
             reset();
             closeModal();
             history.push(`/posts/${newPostId.id}`);

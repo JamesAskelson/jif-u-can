@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addCommentToPostThunk, getAllPostsThunk } from "../../store/posts";
 import './addCommentForm.css'
@@ -32,8 +32,7 @@ export default function AddCommentForm({ user, post }) {
         }
 
         setErrorValidation({...errors})
-
-        console.log('errors', errors)
+        
         if(!Object.values(errors).length){
             let data = {
                 user_id: user.id,

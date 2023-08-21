@@ -19,7 +19,6 @@ export const getAllTagsThunk = () => async (dispatch) => {
 
     if (res.ok) {
         const data = await res.json()
-        console.log("data", data)
         dispatch(getTags(data))
     }
 }
@@ -31,7 +30,6 @@ const initialState = {};
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case GET_ALL_TAGS: {
-            console.log("hello")
             const allTags = action.data;
             const normalizedTags = dataNormalizer(allTags);
             return {

@@ -1,12 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { deleteCommentThunk, getAllPostsThunk } from "../../store/posts";
+import { getAllPostsThunk } from "../../store/posts";
 import { useEffect } from "react";
 import OpenModalButton from '../OpenModalButton';
 import EditPostModal from "../EditPostModal";
 import DeletePostModal from "../DeletePostModal";
 import AddCommentForm from "./addCommentForm";
-import EditCommentModal from "../EditCommentModal";
 import PostComments from "./postComments";
 import './PostDetails.css'
 import PostCard from "../PostCard";

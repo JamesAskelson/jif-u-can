@@ -6,9 +6,6 @@ export default function TagCard({ tag }) {
     const postsData = useSelector((store) => store.posts)
     const posts = Object.values(postsData)
     const tagPosts = posts.filter((post) => post.tag_id === tag?.id)
-
-    console.log(tag)
-    console.log(tag.url)
     return (
         <Link to={`/tags/${tag.id}`}>
 

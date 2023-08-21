@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getAllPostsThunk, makeNewPost } from "../../store/posts";
 import './AddPost.css'
 
@@ -47,7 +47,6 @@ export default function AddPostModal({ user }) {
             }
             const newPostId = await dispatch(makeNewPost(data));
             await dispatch(getAllPostsThunk())
-            console.log('newpostid',newPostId)
             reset();
             closeModal();
             history.push(`/posts/${newPostId}`);

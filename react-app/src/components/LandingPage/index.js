@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllPostsThunk } from "../../store/posts";
 import { Link } from "react-router-dom";
@@ -15,7 +15,6 @@ export default function Landing() {
     const tags = Object.values(tagsData)
     const posts = Object.values(postsData)
     const publicPosts = posts.filter(post => post.hidden === false)
-    console.log('public posts', publicPosts)
 
     const goToTop = () => {
         window.scrollTo({

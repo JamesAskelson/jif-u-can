@@ -90,7 +90,6 @@ export const makeNewPost = (post) => async (dispatch) => {
 }
 
 export const editExistingPost = (post, postId) => async (dispatch) => {
-    // console.log('postid', postId)
 
     const res = await fetch(`/api/posts/${postId}`, {
         method: "PATCH",
@@ -101,13 +100,11 @@ export const editExistingPost = (post, postId) => async (dispatch) => {
     if(res.ok) {
         const edittedPost = await res.json();
         dispatch(editPost(edittedPost));
-        console.log('thunk return', edittedPost)
         return edittedPost
     }
 }
 
 export const deleteExistingPost = (postId) => async (dispatch) => {
-    console.log('postId', postId)
     const res = await fetch(`/api/posts/${postId}`, {
         method: "DELETE",
     })
@@ -135,7 +132,6 @@ export const addCommentToPostThunk = (comment) => async (dispatch) => {
 }
 
 export const editCommentThunk = (comment, commentId) => async (dispatch) => {
-    console.log(comment, commentId)
     const res = await fetch(`/api/comments/${commentId}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -156,7 +152,6 @@ export const deleteCommentThunk = (postId, commentId) => async (dispatch) => {
     })
 
     if (res.ok) {
-        console.log(postId, commentId)
         dispatch(deleteComment([postId, commentId]))
     }
 }

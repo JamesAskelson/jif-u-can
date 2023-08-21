@@ -17,7 +17,6 @@ export default function UserProfile() {
     const postsArr = Object.values(posts);
     const userPosts = postsArr.filter(post => post.user_id === sessionUser.id);
     const userComments = useSelector((store) => store.comments)
-    console.log('comments', userComments)
     const [view, setView] = useState("posts");
 
     useEffect(() => {

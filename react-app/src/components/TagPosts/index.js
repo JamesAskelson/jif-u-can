@@ -14,9 +14,6 @@ export default function TagPosts() {
     const posts = Object.values(postsData)
     const tagsData = useSelector((store) => store.tags)
     const tag = tagsData[id];
-    console.log('posts', posts)
-    console.log('tag', tag)
-    console.log()
     const tagPosts = posts.filter((post) => post.tag_id === tag?.id)
 
 
