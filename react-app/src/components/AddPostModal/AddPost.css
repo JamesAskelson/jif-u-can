@@ -52,8 +52,15 @@
 }
 
 #new-post-graphic-preview>img{
-    max-width: 150px;
-    max-height: 200px;
+    max-width: 100px;
+    max-height: 150px;
+}
+
+#new-post-graphic-preview>span{
+    display: flex;
+    justify-content: center;
+    color: rgb(197, 197, 197);
+    padding-bottom: 10px;
 }
 
 #new-post-description{

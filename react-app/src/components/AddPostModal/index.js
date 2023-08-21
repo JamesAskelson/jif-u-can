@@ -116,10 +116,13 @@ export default function AddPostModal({ user }) {
 
                     <div id='new-post-graphic-preview'>
                         {graphic && (
+                                <>
+                                <span>Preview</span>
                                 <img
                                     id="new-post-graphic-container"
                                     src={graphic}
                                 />
+                                </>
                             )}
                     </div>
 
