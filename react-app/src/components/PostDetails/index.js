@@ -69,9 +69,12 @@ export default function PostDetails() {
 
     return (
         <div id='post-details-outer'>
-            <h3 onClick={() => history.goBack()} id="breadcrumb">
-                {"< Go Back"}
-            </h3>
+            <div id='post-details-breadcrumb'>
+                <h3 onClick={() => history.goBack()} id="breadcrumb">
+                    {"< Go Back"}
+                </h3>
+            </div>
+
             <div id='post-details'>
                 <div id='post-details-main-container'>
                     <div id='post-details-title-user'>

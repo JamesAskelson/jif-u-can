@@ -159,7 +159,7 @@ export default function AddPostModal({ user }) {
                         <label id='new-post-label'>
 							Do you want your post to be hidden?
 						</label>
-                        <div id='new-post-label'>
+                        <div id='new-post-label-hidden'>
                             <input
 								type="radio"
 								value={true}

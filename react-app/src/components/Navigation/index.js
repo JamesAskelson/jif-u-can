@@ -38,7 +38,7 @@ function Navigation({ isLoaded }){
 					)}
 				</div>
 				<div id='nav-links-middle'>
-					Search Bar
+				
 				</div>
 				<div id='nav-links-right'>
 					{sessionUser && (

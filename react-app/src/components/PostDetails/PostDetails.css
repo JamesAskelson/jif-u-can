@@ -8,6 +8,24 @@
     margin: 0;
 }
 
+#post-details-breadcrumb{
+    width: fit-content;
+    padding-top: 20px;
+    padding-left: 5%;
+    margin: 0;
+}
+
+#post-details-breadcrumb>h3{
+    border: 2px solid rgb(118, 16, 165);
+    background-color: rgb(118, 34, 156);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#post-details-breadcrumb>h3:hover{
+    cursor: pointer;
+}
+
 #post-details{
     min-height: 100vh;
 }
@@ -124,4 +142,14 @@
     padding-top: 60px;
     font-size: 20px;
     font-weight: bold;
+}
+
+@media screen and (max-width: 600px){
+    #post-comments-whole-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 50%;
+        margin: auto;
+    }
 }

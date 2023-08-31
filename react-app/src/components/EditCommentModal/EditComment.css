@@ -63,3 +63,7 @@
         cursor: not-allowed;
     }
 }
+
+#edit-comment-submit-button>button:hover{
+    cursor: pointer;
+}

@@ -62,3 +62,20 @@
         cursor: not-allowed;
     }
 }
+
+#new-comment-submit-button>button:hover{
+    cursor: pointer;
+}
+
+#comment-error-container{
+    padding-left: 10px;
+}
+
+@media screen and (max-width: 600px){
+    #new-comment-img-submit{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

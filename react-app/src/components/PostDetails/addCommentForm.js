@@ -32,7 +32,7 @@ export default function AddCommentForm({ user, post }) {
         }
 
         setErrorValidation({...errors})
-        
+
         if(!Object.values(errors).length){
             let data = {
                 user_id: user.id,
@@ -72,7 +72,7 @@ export default function AddCommentForm({ user, post }) {
                         onChange={(e) => setText(e.target.value)}
                     />
                 </div>
-                <div>
+                <div id='comment-error-container'>
                     {hasSubmitted && <span id='comment-error'>{errorValidation.general}</span>}
                     {hasSubmitted && <span id='comment-error'>{errorValidation.text}</span>}
                     {hasSubmitted && <span id='comment-error'>{errorValidation.url}</span>}

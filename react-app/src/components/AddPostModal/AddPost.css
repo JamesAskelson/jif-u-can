@@ -97,6 +97,19 @@
     padding-left: 10px;
 }
 
+#new-post-tag>select:hover{
+    cursor: pointer;
+}
+
+#new-post-label-hidden{
+    display: flex;
+    justify-content: center;
+}
+
+#new-post-label-hidden>input:hover{
+cursor: pointer;
+}
+
 #new-post-submit{
     padding: 20px 0px;
 }
@@ -111,4 +124,8 @@
     background-color: rgb(41, 179, 126);
     color: white;
     box-shadow: 5px 5px 5px rgb(71, 71, 71);
+}
+
+#new-post-submit>button:hover{
+    cursor: pointer;
 }

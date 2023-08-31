@@ -41,3 +41,7 @@
     color: white;
     box-shadow: 5px 5px 5px rgb(71, 71, 71);
 }
+
+#delete-post-modal-buttons>div>button:hover{
+    cursor: pointer;
+}
