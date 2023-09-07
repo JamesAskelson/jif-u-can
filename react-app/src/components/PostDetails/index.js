@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { getAllPostsThunk } from "../../store/posts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import OpenModalButton from '../OpenModalButton';
 import EditPostModal from "../EditPostModal";
 import DeletePostModal from "../DeletePostModal";
@@ -10,6 +10,7 @@ import PostComments from "./postComments";
 import './PostDetails.css'
 import PostCard from "../PostCard";
 import { Link } from "react-router-dom";
+import { addNewLike, deleteExistingLike, getAllPostLikesThunk } from "../../store/likes";
 
 export default function PostDetails() {
     const history = useHistory();
@@ -23,7 +24,12 @@ export default function PostDetails() {
     const post = postsData[id];
     const photos = post?.post_graphic;
     const comments = post?.post_comments
-
+    const likesData = useSelector((store) => store.likes)
+    const likes = Object.values(likesData)
+    const postLikes = likes.filter(like => like.post_id === post.id)
+    const [upVoteStatus, setUpVoteStatus] = useState(null);
+    const [downVoteStatus, setDownVoteStatus] = useState(null);
+    let userVote2 = []
 
     const postDate = new Date(post?.created_date)
     const currentDate = new Date()
@@ -65,6 +71,93 @@ export default function PostDetails() {
         }
       }, [dispatch]);
 
+
+
+    let userVote = []
+
+    async function handleLike(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (sessionUser) {
+          userVote2 = postLikes.filter((like) => like.user_id === sessionUser.id);
+          console.log('userVote', userVote);
+        }
+
+        if (userVote2.length > 0) {
+          await dispatch(deleteExistingLike(userVote2[0].id));
+        } else {
+          let data = {
+            user_id: sessionUser.id,
+            post_id: post.id,
+            vote: 1,
+          };
+          const newLike = await dispatch(addNewLike(data));
+        }
+
+        // Prevent the click event from propagating
+
+      }
+
+      async function handleDislike(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (sessionUser) {
+          userVote2 = postLikes.filter((like) => like.user_id === sessionUser.id);
+          console.log('userVote', userVote);
+        }
+
+        if (userVote2.length > 0) {
+          await dispatch(deleteExistingLike(userVote2[0].id));
+        } else {
+          let data = {
+            user_id: sessionUser.id,
+            post_id: post.id,
+            vote: -1,
+          };
+          const newLike = await dispatch(addNewLike(data));
+        }
+
+        // Prevent the click event from propagating
+      }
+
+    function calTotalVotes(arr) {
+        return arr.reduce((totalVotes, like) => totalVotes + like.vote, 0);
+    }
+
+    const totalVotes = calTotalVotes(postLikes)
+
+    useEffect(() => {
+        if (!Object.values(likesData).length) {
+            async function fetchData() {
+                await dispatch(getAllPostLikesThunk(post?.id));
+            }
+            fetchData();
+        }
+    }, [dispatch]);
+
+    useEffect(() => {
+        // Update voteStatus when postLikes change
+        if (sessionUser) {
+            userVote = postLikes.filter(like => like.user_id === sessionUser.id)
+            console.log('user', userVote[0]?.vote)
+            if (userVote) {
+              if(userVote[0]?.vote === 1){
+                setUpVoteStatus("upvote")
+              } else {
+                setUpVoteStatus(null)
+              }
+              if(userVote[0]?.vote === -1){
+                setDownVoteStatus("downvote")
+              } else {
+                setDownVoteStatus(null)
+              }
+            }
+          }
+      }, [dispatch, likesData, post?.id, postLikes, sessionUser]);
+
+
     if (!post) return <></>;
 
     return (
@@ -74,8 +167,19 @@ export default function PostDetails() {
                     {"< Go Back"}
                 </h3>
             </div>
-
             <div id='post-details'>
+            <div id='post-details-votes-container'>
+                <div id='post-details-votes'>
+                    <button className={`vote-button ${upVoteStatus === 'upvote' ? 'upvoted' : ''}`} onClick={handleLike} disabled={!sessionUser}>
+                            <i class="fa fa-solid fa-arrow-up"></i>
+                    </button>
+                    <span id='post-total-votes'>{totalVotes}</span>
+                    <button className={`vote-button ${downVoteStatus === 'downvote' ? 'downvoted' : ''}`} onClick={handleDislike} disabled={!sessionUser}>
+
+                            <i class="fa fa-solid fa-arrow-down"></i>
+                    </button>
+                </div>
+            </div>
                 <div id='post-details-main-container'>
                     <div id='post-details-title-user'>
                         <div>

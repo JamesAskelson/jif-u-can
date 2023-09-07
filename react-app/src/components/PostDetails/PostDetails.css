@@ -15,6 +15,37 @@
     margin: 0;
 }
 
+#post-details-votes-container{
+    width: 60px;
+    position: sticky;
+    top: 45%;
+    left: 25%;
+    height: auto;
+    box-sizing: content-box;
+}
+
+#post-details-votes{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(87, 87, 87);
+    border-radius: 5%;
+    padding: 20%;
+    gap: 10px;
+}
+
+#post-details-votes>button{
+    border: none;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+#post-details-votes>button>i{
+    font-size: 24px;
+}
+
 #post-details-breadcrumb>h3{
     border: 2px solid rgb(118, 16, 165);
     background-color: rgb(118, 34, 156);
@@ -27,7 +58,7 @@
 }
 
 #post-details{
-    min-height: 100vh;
+    min-height: 80vh;
 }
 
 #post-details-main-container{

@@ -19,6 +19,8 @@ class Post(db.Model, UserMixin):
     created_date = db.Column(db.DateTime, default=datetime.utcnow)
 
 
+    post_likes = db.relationship("Like", back_populates="post", cascade="all, delete-orphan")
+
     post_comments = db.relationship("Comment", backref="post", cascade="all, delete-orphan")
 
     post_graphics = db.relationship("PostGraphic", backref="post", cascade="all, delete-orphan")

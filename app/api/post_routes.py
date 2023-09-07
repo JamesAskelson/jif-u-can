@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import Post, db, PostGraphic, User, Comment
+from app.models import Post, db, PostGraphic, User, Comment, Like
 from flask_login import current_user, login_user, logout_user, login_required
 from ..forms.add_post_form import PostForm
 from sqlalchemy.orm import joinedload
@@ -27,6 +27,14 @@ def get_all_posts():
 
     return jsonify(post_dicts)
 
+@posts.route('/<int:postId>/likes')
+def get_all_post_likes(postId):
+    post = Post.query.get(postId)
+    # print('-----------------------------------------', post.id)
+    postLikes = Like.query.filter(Like.post_id == post.id).all()
+    print('-----------------------------------------', postLikes)
+
+    return [like.to_dict() for like in postLikes]
 
 # def get_all_posts():
 #     allPosts = Post.query.all(Post).options(joinedload(Post.user)).all()

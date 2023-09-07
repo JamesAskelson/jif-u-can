@@ -4,13 +4,14 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-from .models import db, User, Post, PostGraphic, Comment, Tag
+from .models import db, User, Post, PostGraphic, Comment, Tag, Like
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.post_routes import posts
 from .api.comment_routes import comments
 from .api.postgraphic_routes import posts_graphics
 from .api.tag_routes import tags
+from .api.like_routes import likes
 from .seeds import seed_commands
 from .config import Config
 
@@ -36,6 +37,7 @@ app.register_blueprint(posts, url_prefix='/api/posts')
 app.register_blueprint(comments, url_prefix='/api/comments')
 app.register_blueprint(posts_graphics, url_prefix='/api/post_graphics')
 app.register_blueprint(tags, url_prefix='/api/tags')
+app.register_blueprint(likes, url_prefix='/api/likes')
 db.init_app(app)
 Migrate(app, db)
 
@@ -68,6 +70,11 @@ def testcomments():
 def testtags():
     tags = Tag.query.all()
     return [tag.to_dict() for tag in tags]
+
+@app.route("/likes")
+def testlikes():
+    likes = Like.query.all()
+    return [like.to_dict() for like in likes]
 
 ##############################################################################
 
