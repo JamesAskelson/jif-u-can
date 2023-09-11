@@ -12,6 +12,7 @@ from .api.comment_routes import comments
 from .api.postgraphic_routes import posts_graphics
 from .api.tag_routes import tags
 from .api.like_routes import likes
+from .api.favorites_routes import favorites
 from .seeds import seed_commands
 from .config import Config
 
@@ -38,6 +39,7 @@ app.register_blueprint(comments, url_prefix='/api/comments')
 app.register_blueprint(posts_graphics, url_prefix='/api/post_graphics')
 app.register_blueprint(tags, url_prefix='/api/tags')
 app.register_blueprint(likes, url_prefix='/api/likes')
+app.register_blueprint(favorites, url_prefix='/api/favorites')
 db.init_app(app)
 Migrate(app, db)
 

@@ -22,6 +22,8 @@ class User(db.Model, UserMixin):
 
     user_likes = db.relationship("Like", back_populates="user", cascade="all, delete-orphan")
 
+    user_favorites = db.relationship("Favorite", back_populates="user", cascade="all, delete-orphan")
+
     @property
     def password(self):
         return self.hashed_password

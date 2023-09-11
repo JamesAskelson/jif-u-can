@@ -11,6 +11,7 @@ import './PostDetails.css'
 import PostCard from "../PostCard";
 import { Link } from "react-router-dom";
 import { addNewLike, deleteExistingLike, getAllPostLikesThunk } from "../../store/likes";
+import { addNewFav, deleteExistingFav, getAllUserFavs } from "../../store/favorites";
 
 export default function PostDetails() {
     const history = useHistory();
@@ -22,6 +23,11 @@ export default function PostDetails() {
     const posts = Object.values(postsData)
     const publicPosts = posts.filter(post => post.hidden === false)
     const post = postsData[id];
+    const userFavs = useSelector((store) => store.favorites);
+    const userFavsArr = Object.values(userFavs)
+    const userPostFav = userFavsArr.filter(fav => fav.post_id === post.id)
+    console.log('does user have a fav for this post', userPostFav)
+    // console.log('userFavs', userFavs)
     const photos = post?.post_graphic;
     const comments = post?.post_comments
     const likesData = useSelector((store) => store.likes)
@@ -29,6 +35,7 @@ export default function PostDetails() {
     const postLikes = likes.filter(like => like.post_id === post.id)
     const [upVoteStatus, setUpVoteStatus] = useState(null);
     const [downVoteStatus, setDownVoteStatus] = useState(null);
+    const [favStatus, setFavStatus] = useState(null);
     let userVote2 = []
 
     const postDate = new Date(post?.created_date)
@@ -63,15 +70,30 @@ export default function PostDetails() {
 
     useEffect(() => {
         // MEGATHUNKADONK
-        if (!Object.values(postsData).length || !Object.values(post).length) {
+        if (!Object.values(postsData).length || !Object.values(post).length || !Object.values(userFavs).length) {
           async function fetchData() {
             await dispatch(getAllPostsThunk());
+            await dispatch(getAllUserFavs());
           }
           fetchData();
         }
       }, [dispatch]);
 
 
+    async function handleFav(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if(userPostFav.length > 0) {
+            await dispatch(deleteExistingFav(userPostFav[0]?.id))
+        } else {
+            let data = {
+                user_id: sessionUser.id,
+                post_id: post.id,
+            };
+            await dispatch(addNewFav(data))
+        }
+    }
 
     let userVote = []
 
@@ -157,6 +179,14 @@ export default function PostDetails() {
           }
       }, [dispatch, likesData, post?.id, postLikes, sessionUser]);
 
+    useEffect(() => {
+        if(userPostFav.length > 0) {
+            setFavStatus("faved")
+        } else {
+            setFavStatus(null)
+        }
+    }, [dispatch, userFavs, post?.id, sessionUser])
+
 
     if (!post) return <></>;
 
@@ -177,6 +207,9 @@ export default function PostDetails() {
                     <button className={`vote-button ${downVoteStatus === 'downvote' ? 'downvoted' : ''}`} onClick={handleDislike} disabled={!sessionUser}>
 
                             <i class="fa fa-solid fa-arrow-down"></i>
+                    </button>
+                    <button className={`vote-button ${favStatus === 'faved' ? 'faved' : ''}`} onClick={handleFav} disabled={!sessionUser}>
+                        <i class="fa fa-solid fa-heart"></i>
                     </button>
                 </div>
             </div>

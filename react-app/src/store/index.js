@@ -5,13 +5,15 @@ import posts from './posts';
 import comments from './comments';
 import tags from './tags';
 import likes from './likes';
+import favorites from './favorites';
 
 const rootReducer = combineReducers({
   session,
   posts,
   comments,
   tags,
-  likes
+  likes,
+  favorites
 });
 
 

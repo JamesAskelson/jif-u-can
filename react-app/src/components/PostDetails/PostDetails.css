@@ -175,6 +175,20 @@
     font-weight: bold;
 }
 
+.upvoted > i{
+    color: green;
+}
+
+.downvoted > i{
+    color: rgb(255, 55, 55);
+}
+
+.faved > i{
+    color: rgb(103, 17, 139);
+}
+
+
+
 @media screen and (max-width: 600px){
     #post-comments-whole-container{
         display: flex;

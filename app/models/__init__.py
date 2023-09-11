@@ -5,4 +5,5 @@ from .comments import Comment
 from .postgraphic import PostGraphic
 from .tags import Tag
 from .likes import Like
+from .favorites import Favorite
 from .db import environment, SCHEMA

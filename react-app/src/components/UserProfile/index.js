@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
 import UserPosts from "./UserPosts"
 import UserComments from "./UserComments"
+import UserFavs from "./UserFavs"
 import { getAllPostsThunk } from "../../store/posts"
 import { getUserCommentsThunk } from "../../store/comments"
+import { getAllUserFavs } from "../../store/favorites"
 import './UserProfile.css'
 
 
@@ -17,14 +19,19 @@ export default function UserProfile() {
     const postsArr = Object.values(posts);
     const userPosts = postsArr.filter(post => post.user_id === sessionUser.id);
     const userComments = useSelector((store) => store.comments)
+    const favs = useSelector((store) => store.favorites)
+    const favsArr = Object.values(favs)
+    const userFavPosts = postsArr.filter(post => favsArr.find(fav => fav.post_id === post.id));
+    console.log('lookin at dis', userFavPosts)
     const [view, setView] = useState("posts");
 
     useEffect(() => {
         // MEGATHUNKADONK
-        if (!Object.values(posts).length || !Object.values(userComments).length) {
+        if (!Object.values(posts).length || !Object.values(userComments).length || !Object.values(favs).length ) {
           async function fetchData() {
             await dispatch(getAllPostsThunk());
             await dispatch(getUserCommentsThunk());
+            await dispatch(getAllUserFavs())
           }
           fetchData();
         }
@@ -52,12 +59,12 @@ export default function UserProfile() {
                 </div>
                 <div id="switch-view-container">
                     <button className={view === "posts" ? "active" : ""} onClick={() => handleView("posts")}>Posts</button>
-                    {/* <button onClick={() => handleView("favorites")}>Favorites</button> */}
+                    <button className={view === "favorites" ? "active" : ""} onClick={() => handleView("favorites")}>Favorites</button>
                     <button className={view === "comments" ? "active" : ""} onClick={() => handleView("comments")}>Comments</button>
                 </div>
             </div>
             {view === "posts" && <UserPosts posts={userPosts} />}
-            {/* {view === "favorites" && <Favorites />} */}
+            {view === "favorites" && <UserFavs user={sessionUser} posts={userFavPosts}/>}
             {view === "comments" && <UserComments user={sessionUser} posts={postsArr} comments={userComments}/>}
         </div>
     )
