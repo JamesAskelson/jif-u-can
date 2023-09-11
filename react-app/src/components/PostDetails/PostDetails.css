@@ -77,6 +77,11 @@
     width: 100%;
 }
 
+#post-details-title{
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
 #post-detail-user{
     padding-bottom: 20px;
 }
@@ -96,7 +101,10 @@
 
 #post-description-container{
     padding: 0px 30px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
+
 
 #edit-delete-post-container{
     display: flex;

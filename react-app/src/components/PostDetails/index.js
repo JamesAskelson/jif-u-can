@@ -47,7 +47,7 @@ export default function PostDetails() {
         timeAgo = 'Just now'
     } else if (timeDifference < 3600) {
         const mins = Math.floor(timeDifference / 60);
-        timeAgo = `${mins} ${mins === 1 ? "minute" : "minutess"} ago`;
+        timeAgo = `${mins} ${mins === 1 ? "minute" : "minutes"} ago`;
     } else if (timeDifference < 86400) {
         const hours = Math.floor(timeDifference / 3600);
         timeAgo = `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
@@ -215,7 +215,7 @@ export default function PostDetails() {
             </div>
                 <div id='post-details-main-container'>
                     <div id='post-details-title-user'>
-                        <div>
+                        <div id='post-details-title'>
                             <h2>
                                 {post.title}
                             </h2>

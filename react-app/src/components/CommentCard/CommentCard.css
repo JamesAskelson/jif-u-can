@@ -30,3 +30,8 @@
     color: rgb(151, 151, 151);
     padding-top: 10px;
 }
+
+#comment-card-text{
+    word-wrap: break-word;
+    word-break: break-all;
+}

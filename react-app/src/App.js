@@ -9,6 +9,7 @@ import LandingPage from "./components/LandingPage";
 import PostDetails from "./components/PostDetails";
 import UserProfile from "./components/UserProfile";
 import TagPosts from "./components/TagPosts";
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           </Route>
         </Switch>
       )}
+      <Footer />
     </>
   );
 }
