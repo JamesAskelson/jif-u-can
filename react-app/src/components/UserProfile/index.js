@@ -22,7 +22,7 @@ export default function UserProfile() {
     const favs = useSelector((store) => store.favorites)
     const favsArr = Object.values(favs)
     const userFavPosts = postsArr.filter(post => favsArr.find(fav => fav.post_id === post.id));
-    console.log('lookin at dis', userFavPosts)
+    // console.log('lookin at dis', userFavPosts)
     const [view, setView] = useState("posts");
 
     useEffect(() => {

@@ -32,7 +32,7 @@ def get_all_post_likes(postId):
     post = Post.query.get(postId)
     # print('-----------------------------------------', post.id)
     postLikes = Like.query.filter(Like.post_id == post.id).all()
-    print('-----------------------------------------', postLikes)
+    # print('-----------------------------------------', postLikes)
 
     return [like.to_dict() for like in postLikes]
 
@@ -104,7 +104,7 @@ def edit_post(postId):
         db.session.commit()
 
         photo = PostGraphic.query.filter(PostGraphic.post_id == postId).first()
-        print('--------------------------------', photo.to_dict())
+        # print('--------------------------------', photo.to_dict())
 
         photo.url=data["graphic"]
 

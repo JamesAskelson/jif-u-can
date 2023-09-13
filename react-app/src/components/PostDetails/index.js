@@ -26,7 +26,7 @@ export default function PostDetails() {
     const userFavs = useSelector((store) => store.favorites);
     const userFavsArr = Object.values(userFavs)
     const userPostFav = userFavsArr.filter(fav => fav.post_id === post.id)
-    console.log('does user have a fav for this post', userPostFav)
+    // console.log('does user have a fav for this post', userPostFav)
     // console.log('userFavs', userFavs)
     const photos = post?.post_graphic;
     const comments = post?.post_comments
@@ -103,7 +103,7 @@ export default function PostDetails() {
 
         if (sessionUser) {
           userVote2 = postLikes.filter((like) => like.user_id === sessionUser.id);
-          console.log('userVote', userVote);
+        //   console.log('userVote', userVote);
         }
 
         if (userVote2.length > 0) {
@@ -127,7 +127,7 @@ export default function PostDetails() {
 
         if (sessionUser) {
           userVote2 = postLikes.filter((like) => like.user_id === sessionUser.id);
-          console.log('userVote', userVote);
+        //   console.log('userVote', userVote);
         }
 
         if (userVote2.length > 0) {
@@ -163,7 +163,7 @@ export default function PostDetails() {
         // Update voteStatus when postLikes change
         if (sessionUser) {
             userVote = postLikes.filter(like => like.user_id === sessionUser.id)
-            console.log('user', userVote[0]?.vote)
+            // console.log('user', userVote[0]?.vote)
             if (userVote) {
               if(userVote[0]?.vote === 1){
                 setUpVoteStatus("upvote")
