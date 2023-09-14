@@ -56,6 +56,7 @@ A clone of Imgur, an image/gif hosting site, that lets users look thru a variety
 | GET /api/auth/ | Authenticates a user | |
 | POST /api/auth/login | Logs in a current user with valid credentials and returns the current user's information. |  |
 | GET /api/auth/logout | Logs a user out |  |
+| GET /api/auth/signup | Creates a new user and logs them in |  |
 | GET /api/users/ | Gets info of all users |  |
 | GET /api/users/:id | Gets info of user by id |  |
 | GET /api/posts | Gets info of all posts and its comments |  |
