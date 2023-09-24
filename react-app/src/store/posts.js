@@ -75,30 +75,32 @@ export const getSingleSpotByIdThunk = (postId) => async (dispatch) => {
     }
 }
 
-export const makeNewPost = (post) => async (dispatch) => {
+export const makeNewPost = (formData) => async (dispatch) => {
 
     const res = await fetch("/api/posts/new", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(post),
+        body: formData,
     })
     if(res.ok) {
         const newPost = await res.json();
+        // console.log('in thunk', newPost)
         dispatch(makePost(newPost));
         return newPost.id;
+    } else {
+        // console.log("There was an error making your post!")
     }
 }
 
-export const editExistingPost = (post, postId) => async (dispatch) => {
+export const editExistingPost = (formData, postId) => async (dispatch) => {
 
     const res = await fetch(`/api/posts/${postId}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(post),
+        body: formData,
     });
 
     if(res.ok) {
         const edittedPost = await res.json();
+
         dispatch(editPost(edittedPost));
         return edittedPost
     }

@@ -102,7 +102,7 @@ export default function PostCard({ post }) {
             <div id='post-card-image'>
                 <img
                 alt='post'
-                src={post.post_graphic[0].url}
+                src={post?.post_graphic[0]?.url}
                 title={post.title}
                 />
             </div>

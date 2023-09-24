@@ -15,7 +15,7 @@ export default function EditPostModal({ user, post }) {
     const [description, setDescription] = useState(post.description);
     const [hidden, setHidden] = useState(post.hidden);
     const [graphic, setGraphic] = useState(post.post_graphic[0].url);
-
+    const [imageLoading, setImageLoading] = useState(false);
     // Submit Handler and Error Checking
 
     async function handleSubmit(e) {
@@ -26,25 +26,27 @@ export default function EditPostModal({ user, post }) {
 
         if(!title) errors.title = "Title is required";
         if(title.length < 10 || title.length > 100) errors.title = "Title must be between 10 and 100 characters long";
-        if(!graphic) errors.graphic = "All posts must contain an image or gif";
-        if(graphic){
-            if(!urlCheck(graphic)) errors.graphic = "All graphics must be in an image or gif format (.jgp, .png, .jpeg, .gif)";
-        }
-
 
         setErrorValidation({...errors});
 
         if (!Object.values(errors).length) {
-            let data = {
-                user_id: user.id,
-                tag_id,
-                title,
-                description,
-                hidden: Number(hidden),
-                graphic
-            }
-
-            const newPostId = await dispatch(editExistingPost(data, post.id));
+            const formData = new FormData();
+            formData.append('user_id', user.id);
+            formData.append('tag_id', tag_id);
+            formData.append('title', title);
+            formData.append('description', description);
+            formData.append('hidden', hidden);
+            formData.append('graphic', graphic);
+            // let data = {
+            //     user_id: user.id,
+            //     tag_id,
+            //     title,
+            //     description,
+            //     hidden: Number(hidden),
+            //     graphic
+            // }
+            setImageLoading(true);
+            const newPostId = await dispatch(editExistingPost(formData, post.id));
             dispatch(getAllPostsThunk())
             reset();
             closeModal();
@@ -72,7 +74,7 @@ export default function EditPostModal({ user, post }) {
                 <h1>Edit Post</h1>
             </div>
             <hr id='login-title-hr'/>
-            <form id="new-post-form" >
+            <form id="new-post-form" enctype="multipart/form-data">
                 <div id='new-post-info'>
 
                     <div>
@@ -105,14 +107,14 @@ export default function EditPostModal({ user, post }) {
                         </div>
                         <input
                             id='new-post-graphic-input'
-                            type='text'
-                            placeholder='Graphic url'
-                            value={graphic}
-                            onChange={(e) => setGraphic(e.target.value)}
+                            type='file'
+                            accept="image/gif/*"
+                            onChange={(e) => setGraphic(e.target.files[0])}
+
                         />
                     </div>
 
-                    <div id='new-post-graphic-preview'>
+                    {/* <div id='new-post-graphic-preview'>
                         {graphic && (
                                 <>
                                 <span>Preview</span>
@@ -122,7 +124,7 @@ export default function EditPostModal({ user, post }) {
                                 />
                                 </>
                             )}
-                    </div>
+                    </div> */}
 
                     <div id='new-post-description'>
                         <div id='new-post-label'>
@@ -180,6 +182,7 @@ export default function EditPostModal({ user, post }) {
                             <button type='submit' onClick={handleSubmit} id='new-post-submit-button'>
                                 Submit
                             </button>
+                            {(imageLoading)&& <p>Loading...</p>}
                     </div>
                 </div>
             </form>
