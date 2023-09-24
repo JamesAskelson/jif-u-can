@@ -16,6 +16,8 @@ export default function AddPostModal({ user }) {
     const [description, setDescription] = useState("");
     const [hidden, setHidden] = useState(false);
     const [graphic, setGraphic] = useState("");
+    const [imageLoading, setImageLoading] = useState(false);
+    // console.log('graphic', graphic)
 
     // Submit Handler and Error Checking
 
@@ -29,23 +31,33 @@ export default function AddPostModal({ user }) {
         if(title.length < 10 || title.length > 100) errors.title = "Title must be between 10 and 100 characters long";
         if(!hidden) errors.hidden = "Post must be either public or hidden";
         if(!graphic) errors.graphic = "All posts must contain an image or gif";
-        if(graphic){
-            if(!urlCheck(graphic)) errors.graphic = "Grahpic must end with .jgp, .png, .jpeg, or .gif";
-        }
+        // if(graphic){
+        //     if(!urlCheck(graphic)) errors.graphic = "Grahpic must end with .jgp, .png, .jpeg, or .gif";
+        // }
 
 
         setErrorValidation({...errors});
 
+
+
         if (!Object.values(errors).length) {
-            let data = {
-                user_id: user.id,
-                tag_id,
-                title,
-                description,
-                hidden,
-                graphic
-            }
-            const newPostId = await dispatch(makeNewPost(data));
+            const formData = new FormData();
+            formData.append('user_id', user.id);
+            formData.append('tag_id', tag_id);
+            formData.append('title', title);
+            formData.append('description', description);
+            formData.append('hidden', hidden);
+            formData.append('graphic', graphic);
+            // let data = {
+            //     user_id: user.id,
+            //     tag_id,
+            //     title,
+            //     description,
+            //     hidden,
+            //     graphic: graphic
+            // }
+            setImageLoading(true);
+            const newPostId = await dispatch(makeNewPost(formData));
             await dispatch(getAllPostsThunk())
             reset();
             closeModal();
@@ -73,7 +85,7 @@ export default function AddPostModal({ user }) {
                 <h1>Create Post</h1>
             </div>
             <hr id='login-title-hr'/>
-            <form id="new-post-form" >
+            <form id="new-post-form" encType="multipart/form-data">
                 <div id='new-post-info'>
 
                     <div>
@@ -106,24 +118,25 @@ export default function AddPostModal({ user }) {
                         </div>
                         <input
                             id='new-post-graphic-input'
-                            type='text'
-                            placeholder='Graphic url'
-                            value={graphic}
-                            onChange={(e) => setGraphic(e.target.value)}
+                            type='file'
+                            accept="image/*"
+                            // placeholder='Graphic url'
+                            onChange={(e) => setGraphic(e.target.files[0])}
                         />
                     </div>
+                    {/* {console.log(graphic)} */}
 
-                    <div id='new-post-graphic-preview'>
+                    {/* <div id='new-post-graphic-preview'>
                         {graphic && (
                                 <>
                                 <span>Preview</span>
                                 <img
                                     id="new-post-graphic-container"
-                                    src={graphic}
+                                    src={graphic.name}
                                 />
                                 </>
                             )}
-                    </div>
+                    </div> */}
 
                     <div id='new-post-description'>
                         <div id='new-post-label'>
@@ -173,6 +186,7 @@ export default function AddPostModal({ user }) {
 								name="yes-no"
 								onChange={(e) => setHidden(e.target.value)}
 								required
+
 							/> No
                         </div>
                     </div>
@@ -181,6 +195,7 @@ export default function AddPostModal({ user }) {
                             <button type='submit' onClick={handleSubmit} id='new-post-submit-button'>
                                 Submit
                             </button>
+                            {(imageLoading)&& <p>Loading...</p>}
                     </div>
                 </div>
             </form>

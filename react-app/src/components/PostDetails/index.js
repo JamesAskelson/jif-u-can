@@ -25,14 +25,15 @@ export default function PostDetails() {
     const post = postsData[id];
     const userFavs = useSelector((store) => store.favorites);
     const userFavsArr = Object.values(userFavs)
-    const userPostFav = userFavsArr.filter(fav => fav.post_id === post.id)
+    const userPostFav = userFavsArr.filter(fav => fav?.post_id === post?.id)
+    // console.log('post', post)
     // console.log('does user have a fav for this post', userPostFav)
     // console.log('userFavs', userFavs)
     const photos = post?.post_graphic;
     const comments = post?.post_comments
     const likesData = useSelector((store) => store.likes)
     const likes = Object.values(likesData)
-    const postLikes = likes.filter(like => like.post_id === post.id)
+    const postLikes = likes.filter(like => like?.post_id === post?.id)
     const [upVoteStatus, setUpVoteStatus] = useState(null);
     const [downVoteStatus, setDownVoteStatus] = useState(null);
     const [favStatus, setFavStatus] = useState(null);
@@ -230,7 +231,7 @@ export default function PostDetails() {
                     <div id='post-details-img'>
                         <img
                         alt='post'
-                        src={photos[0].url}
+                        src={photos[0]?.url}
                         title={post.title}
                         />
                     </div>

@@ -7,5 +7,5 @@ tags = Blueprint("tags", __name__)
 @tags.route("/")
 def get_all_tags():
     allTags = Tag.query.all()
-    print(allTags)
+    # print(allTags)
     return [tag.to_dict() for tag in allTags]
