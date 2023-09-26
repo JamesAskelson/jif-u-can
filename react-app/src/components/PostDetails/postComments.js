@@ -1,8 +1,10 @@
-import { useDispatch } from "react-redux";
-import { deleteCommentThunk } from "../../store/posts";
+import { useDispatch} from "react-redux";
+import { deleteCommentThunk, getAllPostsThunk } from "../../store/posts";
 import EditCommentModal from "../EditCommentModal";
 import OpenModalButton from "../OpenModalButton";
 import './postComments.css'
+import { useEffect } from "react";
+
 
 export default function PostComments ({ comment, post, sessionUser }) {
     const dispatch = useDispatch();
@@ -10,12 +12,14 @@ export default function PostComments ({ comment, post, sessionUser }) {
     const currentDate = new Date()
     const timeDifference = Math.floor(( currentDate - commentDate ) / 1000)
 
+
+
     let timeAgo = "";
     if(timeDifference < 60) {
         timeAgo = 'Just now'
     } else if (timeDifference < 3600) {
         const mins = Math.floor(timeDifference / 60);
-        timeAgo = `${mins} ${mins === 1 ? "minute" : "minutess"} ago`;
+        timeAgo = `${mins} ${mins === 1 ? "minute" : "minutes"} ago`;
     } else if (timeDifference < 86400) {
         const hours = Math.floor(timeDifference / 3600);
         timeAgo = `${hours} ${hours === 1 ? "hour" : "hours"} ago`;
@@ -35,7 +39,7 @@ export default function PostComments ({ comment, post, sessionUser }) {
             <div id='post-comment'>
                 <div id='comment-username-date'>
                     <div id='comment-username'>
-                        {comment.user?.username}
+                        {comment?.user?.username}
                     </div>
                     <div>
                     • {timeAgo}

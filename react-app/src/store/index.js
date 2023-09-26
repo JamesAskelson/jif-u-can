@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   comments,
   tags,
   likes,
-  favorites
+  favorites,
 });
 
 

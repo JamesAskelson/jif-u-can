@@ -120,11 +120,10 @@ export const deleteExistingPost = (postId) => async (dispatch) => {
 
 // comments
 
-export const addCommentToPostThunk = (comment) => async (dispatch) => {
+export const addCommentToPostThunk = (formData) => async (dispatch) => {
     const res = await fetch("/api/comments/new", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(comment),
+        body: formData
     })
     if(res.ok) {
         const newComment = await res.json()
@@ -133,11 +132,10 @@ export const addCommentToPostThunk = (comment) => async (dispatch) => {
     }
 }
 
-export const editCommentThunk = (comment, commentId) => async (dispatch) => {
+export const editCommentThunk = (formData, commentId) => async (dispatch) => {
     const res = await fetch(`/api/comments/${commentId}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(comment)
+        body: formData
     });
 
     if(res.ok) {
