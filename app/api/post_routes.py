@@ -67,6 +67,7 @@ def new_post():
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         data = form.data
+
         new_post = Post(
             user_id=data["user_id"],
             tag_id=data["tag_id"],
@@ -88,6 +89,8 @@ def new_post():
         graphic = PostGraphic(post_id=new_post.id, url=url)
         db.session.add(graphic)
         db.session.commit()
+
+        
 
         return new_post.to_dict()
 

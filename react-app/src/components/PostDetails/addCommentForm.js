@@ -2,14 +2,16 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addCommentToPostThunk, getAllPostsThunk } from "../../store/posts";
 import './addCommentForm.css'
-
+import { useHistory } from "react-router-dom/";
 
 export default function AddCommentForm({ user, post }) {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [errorValidation, setErrorValidation] = useState({});
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [text, setText] = useState("");
     const [url, setUrl] = useState("");
+    const [imageLoading, setImageLoading] = useState(false);
 
     // useEffect(() => {
     //     errorChecking()
@@ -22,27 +24,26 @@ export default function AddCommentForm({ user, post }) {
         const errors = {}
 
         if(!text && !url) errors.general = "Comment must have either text or an image/gif"
-
         if (text && text.length > 255) {
             errors.text = "Text must be less than 255 chars";
         }
-
-        if (url && !urlCheck(url)) {
-            errors.url = "Any url must end with .jpg, .png, .jpeg, or .gif";
-        }
+        // if (url && !urlCheck(url)) {
+        //     errors.url = "Any url must end with .jpg, .png, .jpeg, or .gif";
+        // }
 
         setErrorValidation({...errors})
 
         if(!Object.values(errors).length){
-            let data = {
-                user_id: user.id,
-                post_id: post.id,
-                text,
-                url
-            }
-            dispatch(addCommentToPostThunk(data))
-            dispatch(getAllPostsThunk())
+            const formData = new FormData();
+            formData.append('user_id', user.id);
+            formData.append('post_id', post.id);
+            formData.append('text', text);
+            formData.append('url', url);
+            setImageLoading(true);
+            await dispatch(addCommentToPostThunk(formData))
+            await dispatch(getAllPostsThunk())
             reset()
+            // window.location.reload();
         }
     }
 
@@ -63,7 +64,7 @@ export default function AddCommentForm({ user, post }) {
 
     return (
         <div id='new-comments-form-container'>
-            <form id='new-comment-form'>
+            <form id='new-comment-form' encType="multipart/form-data">
                 <div id='new-comment-text'>
                     <textarea
                         id='new-comment-text-input'
@@ -82,19 +83,20 @@ export default function AddCommentForm({ user, post }) {
                         <div id='new-comment-img-input'>
                             <input
                                 id='new-comment-url-input'
+                                type="file"
                                 placeholder="Add a gif or image"
-                                value={url}
-                                onChange={(e) => setUrl(e.target.value)}
+                                accept="image/*"
+                                onChange={(e) => setUrl(e.target.files[0])}
                             />
                         </div>
-                        <div id='new-comment-graphic-preview'>
+                        {/* <div id='new-comment-graphic-preview'>
                             {url && (
                                     <img
                                         id="new-post-graphic-container"
                                         src={url}
                                     />
                                 )}
-                        </div>
+                        </div> */}
                     </div>
                     <div id='new-comment-submit-button'>
                         <button
@@ -104,6 +106,7 @@ export default function AddCommentForm({ user, post }) {
                             id='new-post-submit-button'>
                             Submit
                         </button>
+                        {/* {(imageLoading)&& <p>Loading...</p>} */}
                     </div>
                 </div>
             </form>

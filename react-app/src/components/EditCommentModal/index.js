@@ -11,6 +11,7 @@ export default function EditCommentModal({ user, post, comment }) {
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [text, setText] = useState(comment.text);
     const [url, setUrl] = useState(comment.url);
+    const [imageLoading, setImageLoading] = useState(false);
 
     // useEffect(() => {
     //     errorChecking()
@@ -28,21 +29,28 @@ export default function EditCommentModal({ user, post, comment }) {
             errors.text = "Text must be less than 255 chars";
         }
 
-        if (url && !urlCheck(url)) {
-            errors.url = "Any url must end with .jpg, .png, .jpeg, or .gif";
-        }
+        // if (url && !urlCheck(url)) {
+        //     errors.url = "Any url must end with .jpg, .png, .jpeg, or .gif";
+        // }
 
         setErrorValidation({...errors})
 
         if(!Object.values(errors).length){
-            let data = {
-                user_id: user.id,
-                post_id: post.id,
-                text,
-                url
-            }
-            dispatch(editCommentThunk(data, comment.id))
-            dispatch(getAllPostsThunk())
+            const formData = new FormData();
+            formData.append('user_id', user.id);
+            formData.append('post_id', post.id);
+            formData.append('text', text);
+            formData.append('url', url);
+
+            // let data = {
+            //     user_id: user.id,
+            //     post_id: post.id,
+            //     text,
+            //     url
+            // }
+            setImageLoading(true);
+            await dispatch(editCommentThunk(formData, comment.id))
+            await dispatch(getAllPostsThunk())
             reset()
             closeModal()
         }
@@ -61,7 +69,7 @@ export default function EditCommentModal({ user, post, comment }) {
 
     return (
         <div id='edit-comments-form-container'>
-            <form id='edit-comment-form'>
+            <form id='edit-comment-form' encType="multipart/form-data">
                 <div id='edit-comment-text'>
                     <textarea
                         id='new-comment-text-input'
@@ -80,19 +88,20 @@ export default function EditCommentModal({ user, post, comment }) {
                         <div id='edit-comment-img-input'>
                             <input
                                 id='new-comment-url-input'
+                                type='file'
+                                accept="image/*"
                                 placeholder="Add a gif or image"
-                                value={url}
-                                onChange={(e) => setUrl(e.target.value)}
+                                onChange={(e) => setUrl(e.target.files[0])}
                             />
                         </div>
-                        <div id='edit-comment-graphic-preview'>
+                        {/* <div id='edit-comment-graphic-preview'>
                             {url && (
                                     <img
                                         id="new-post-graphic-container"
                                         src={url}
                                     />
                                 )}
-                        </div>
+                        </div> */}
                     </div>
                     <div id='edit-comment-submit-button'>
                         <button
