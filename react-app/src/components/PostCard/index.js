@@ -112,12 +112,12 @@ export default function PostCard({ post }) {
                 </div>
                 <div id='post-card-votes-comments'>
                     <div id='post-card-votes-buttons'>
-                        <button className={`vote-button ${upVoteStatus === 'upvote' ? 'upvoted' : ''}`} onClick={handleLike} disabled={!sessionUser}>
+                        <button className={`vote-button-left ${upVoteStatus === 'upvote' ? 'upvoted' : ''}`} onClick={handleLike} disabled={!sessionUser}>
                             {/* <img src='https://aws-starter-bucket123.s3.amazonaws.com/jifucan-up-down-arrows/Upvote.svg'></img> */}
                             <i class="fa fa-solid fa-arrow-up"></i>
                         </button>
                         <span id='post-total-votes'>{totalVotes}</span>
-                        <button className={`vote-button ${downVoteStatus === 'downvote' ? 'downvoted' : ''}`} onClick={handleDislike} disabled={!sessionUser}>
+                        <button className={`vote-button-right ${downVoteStatus === 'downvote' ? 'downvoted' : ''}`} onClick={handleDislike} disabled={!sessionUser}>
                             {/* <img src='https://aws-starter-bucket123.s3.amazonaws.com/jifucan-up-down-arrows/Downvote.svg'></img> */}
                             <i class="fa fa-solid fa-arrow-down"></i>
                         </button>

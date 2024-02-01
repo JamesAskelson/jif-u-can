@@ -3,6 +3,11 @@
     margin: 0px;
     background-color: rgb(83, 160, 160);
     border-radius: 6px;
+    transition: transform 0.3s ease;
+}
+
+#tag-card-container:hover{
+    transform: translateY(-5px);
 }
 
 #tag-img-container{

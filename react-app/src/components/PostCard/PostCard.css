@@ -5,6 +5,11 @@
     border-radius: 6px;
     margin-bottom: 10px;
     break-inside: avoid;
+    transition: filter 0.3s ease;
+}
+
+#post-card-container:hover{
+    filter: brightness(125%)
 }
 
 #post-card-image>img{
@@ -23,7 +28,6 @@
     font-size: 13px;
     padding-bottom: 10px;
     word-wrap: break-word;
-    word-break: break-all;
 }
 
 #post-card-votes-comments{
@@ -67,6 +71,19 @@
     align-items: center;
     gap: 5px;
     overflow: hidden;
+    transition: filter 0.3s ease;
+}
+
+#post-card-total-comments:hover{
+    filter: brightness(125%);
+}
+
+#post-card-votes-buttons{
+    transition: filter 0.3s ease;
+}
+
+#post-card-votes-buttons:hover{
+    filter: brightness(125%);
 }
 
 .upvoted > i{
