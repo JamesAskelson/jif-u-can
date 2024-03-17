@@ -39,26 +39,11 @@ def get_all_post_likes(postId):
 
     return [like.to_dict() for like in postLikes]
 
-# def get_all_posts():
-#     allPosts = Post.query.all(Post).options(joinedload(Post.user)).all()
-#     print("----------------", allPosts)
-#     for post in allPosts:
-#         for comment in post.post_comments:
-#             user = comment.options(joinedload(User.user_comments)).get(1)
-#             print(user)
-#     print("---------------", allPosts)
-#     return [post.to_dict() for post in allPosts]
-
-
-
-
-
-
-# @posts.route("/<int:postId>")
-# def get_one_post(postId):
-#     singlePost = db.session.query(Post).options(joinedload(Post.user)).get(postId)
-#     print('-------------------------', singlePost.user)
-#     return {"whatever": "fasfdsafds"}
+@posts.route("/<int:postId>/comments")
+def getAllPostComments(postId):
+    allPostComments = Comment.query.filter(Comment.post_id == postId).all()
+    postComments = [comment.to_dict() for comment in allPostComments]
+    return postComments
 
 @posts.route("/new", methods=["POST"])
 @login_required
@@ -90,7 +75,7 @@ def new_post():
         db.session.add(graphic)
         db.session.commit()
 
-        
+
 
         return new_post.to_dict()
 

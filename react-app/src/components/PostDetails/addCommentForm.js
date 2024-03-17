@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addCommentToPostThunk, getAllPostsThunk } from "../../store/posts";
+import { getAllPostsThunk } from "../../store/posts";
 import './addCommentForm.css'
 import { useHistory } from "react-router-dom/";
+import { addCommentThunk, getCommentsThunk } from "../../store/comments";
 
 export default function AddCommentForm({ user, post }) {
     const dispatch = useDispatch();
@@ -40,8 +41,9 @@ export default function AddCommentForm({ user, post }) {
             formData.append('text', text);
             formData.append('url', url);
             setImageLoading(true);
-            await dispatch(addCommentToPostThunk(formData))
-            await dispatch(getAllPostsThunk())
+            await dispatch(addCommentThunk(formData))
+            await dispatch(getCommentsThunk());
+            await dispatch(getAllPostsThunk());
             reset()
             // window.location.reload();
         }

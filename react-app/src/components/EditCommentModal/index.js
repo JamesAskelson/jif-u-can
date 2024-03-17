@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editCommentThunk, getAllPostsThunk } from "../../store/posts";
 import { useModal } from "../../context/Modal";
 import './EditComment.css'
+import { editCommentThunk, getCommentsThunk } from "../../store/comments";
 
 export default function EditCommentModal({ user, post, comment }) {
     const dispatch = useDispatch();
@@ -41,7 +41,6 @@ export default function EditCommentModal({ user, post, comment }) {
             formData.append('post_id', post.id);
             formData.append('text', text);
             formData.append('url', url);
-
             // let data = {
             //     user_id: user.id,
             //     post_id: post.id,
@@ -49,8 +48,8 @@ export default function EditCommentModal({ user, post, comment }) {
             //     url
             // }
             setImageLoading(true);
-            await dispatch(editCommentThunk(formData, comment.id))
-            await dispatch(getAllPostsThunk())
+            await dispatch(editCommentThunk(formData, comment.id));
+            await dispatch(getCommentsThunk());
             reset()
             closeModal()
         }

@@ -12,6 +12,8 @@ import PostCard from "../PostCard";
 import { Link } from "react-router-dom";
 import { addNewLike, deleteExistingLike, getAllPostLikesThunk } from "../../store/likes";
 import { addNewFav, deleteExistingFav, getAllUserFavs } from "../../store/favorites";
+import { getCommentsThunk } from "../../store/comments";
+import { getUsersThunk } from "../../store/session";
 
 export default function PostDetails() {
     const history = useHistory();
@@ -19,6 +21,7 @@ export default function PostDetails() {
     let { id } = useParams();
     id = parseInt(id);
     const sessionUser = useSelector((store) => store.session.user);
+    const users = useSelector((store) => store.session.users);
     const postsData = useSelector((store) => store.posts);
     const posts = Object.values(postsData)
     const publicPosts = posts.filter(post => post.hidden === false)
@@ -26,11 +29,10 @@ export default function PostDetails() {
     const userFavs = useSelector((store) => store.favorites);
     const userFavsArr = Object.values(userFavs)
     const userPostFav = userFavsArr.filter(fav => fav?.post_id === post?.id)
-    // console.log('post', post)
-    // console.log('does user have a fav for this post', userPostFav)
-    // console.log('userFavs', userFavs)
     const photos = post?.post_graphic;
-    const comments = post?.post_comments
+    const commentsData = useSelector((store) => store.comments);
+    const commentsObj = Object.values(commentsData)
+    const comments = commentsObj.filter(comment => comment?.post_id === post?.id)
     const likesData = useSelector((store) => store.likes)
     const likes = Object.values(likesData)
     const postLikes = likes.filter(like => like?.post_id === post?.id)
@@ -70,14 +72,10 @@ export default function PostDetails() {
     }
 
     useEffect(() => {
-        // MEGATHUNKADONK
-        if (!Object.values(postsData).length || !Object.values(post).length || !Object.values(userFavs).length) {
-          async function fetchData() {
-            await dispatch(getAllPostsThunk());
-            await dispatch(getAllUserFavs());
-          }
-          fetchData();
-        }
+        dispatch(getCommentsThunk());
+        dispatch(getAllPostsThunk());
+        dispatch(getAllUserFavs());
+        dispatch(getUsersThunk());
       }, [dispatch]);
 
 
@@ -268,7 +266,7 @@ export default function PostDetails() {
                     <hr id='comments-hr'/>
                     <div id='post-comments-container'>
                         {comments.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((comment) => (
-                            <PostComments comment={comment} post={post} sessionUser={sessionUser}/>
+                            <PostComments comment={comment} post={post} sessionUser={sessionUser} users={users}/>
                         ))}
                     </div>
                 </div>
