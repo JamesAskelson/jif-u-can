@@ -5,7 +5,7 @@ import UserPosts from "./UserPosts"
 import UserComments from "./UserComments"
 import UserFavs from "./UserFavs"
 import { getAllPostsThunk } from "../../store/posts"
-import { getUserCommentsThunk } from "../../store/comments"
+import { getCommentsThunk } from "../../store/comments"
 import { getAllUserFavs } from "../../store/favorites"
 import './UserProfile.css'
 
@@ -18,7 +18,8 @@ export default function UserProfile() {
     const posts = useSelector((store) => store.posts);
     const postsArr = Object.values(posts);
     const userPosts = postsArr.filter(post => post.user_id === sessionUser.id);
-    const userComments = useSelector((store) => store.comments)
+    const comments = Object.values(useSelector((store) => store.comments))
+    const userComments = comments.filter(comment => comment.user_id === sessionUser.id)
     const favs = useSelector((store) => store.favorites)
     const favsArr = Object.values(favs)
     const userFavPosts = postsArr.filter(post => favsArr.find(fav => fav.post_id === post.id));
@@ -30,7 +31,7 @@ export default function UserProfile() {
         if (!Object.values(posts).length || !Object.values(userComments).length || !Object.values(favs).length ) {
           async function fetchData() {
             await dispatch(getAllPostsThunk());
-            await dispatch(getUserCommentsThunk());
+            await dispatch(getCommentsThunk());
             await dispatch(getAllUserFavs())
           }
           fetchData();

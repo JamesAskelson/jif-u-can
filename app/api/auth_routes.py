@@ -28,6 +28,12 @@ def authenticate():
         return current_user.all_user_info_to_dict()
     return {'errors': ['Unauthorized']}
 
+@auth_routes.route('/users')
+def getUsers():
+    allUsers = User.query.all()
+    users = [user.to_dict() for user in allUsers]
+    return users
+
 
 @auth_routes.route('/login', methods=['POST'])
 def login():

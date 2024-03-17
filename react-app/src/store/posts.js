@@ -8,8 +8,6 @@ const CREATE_POST = "create_post/POST";
 const EDIT_POST = "edit_post/POST";
 const DELETE_POST = "delete_post/DELETE";
 const ADD_COMMENT_TO_POST = 'add_comment_to_post/POST'
-const EDIT_COMMENT_ON_POST = 'edit_comment/PATCH'
-const DELETE_COMMENT_ON_POST = 'delete_comment/DELETE'
 
 // actions
 
@@ -38,20 +36,10 @@ const deletePost = (post) => ({
     data: post
 })
 
-const addCommentToPost = (comment) => ({
-    type: ADD_COMMENT_TO_POST,
-    data: comment
-})
-
-const editComment = (comment) => ({
-    type: EDIT_COMMENT_ON_POST,
-    data: comment
-})
-
-const deleteComment = (commentArr) => ({
-    type: DELETE_COMMENT_ON_POST,
-    data: commentArr
-})
+// const addCommentToPost = (comment) => ({
+//     type: ADD_COMMENT_TO_POST,
+//     data: comment
+// })
 
 // Thunks
 
@@ -120,41 +108,19 @@ export const deleteExistingPost = (postId) => async (dispatch) => {
 
 // comments
 
-export const addCommentToPostThunk = (formData) => async (dispatch) => {
-    const res = await fetch("/api/comments/new", {
-        method: "POST",
-        body: formData
-    })
-    if(res.ok) {
-        const newComment = await res.json()
-        dispatch(addCommentToPost(newComment))
-        return newComment
-    }
-}
+// export const addCommentToPostThunk = (formData) => async (dispatch) => {
+//     const res = await fetch("/api/comments/new", {
+//         method: "POST",
+//         body: formData
+//     })
+//     if(res.ok) {
+//         const newComment = await res.json()
+//         dispatch(addCommentToPost(newComment))
+//         return newComment
+//     }
+// }
 
-export const editCommentThunk = (formData, commentId) => async (dispatch) => {
-    const res = await fetch(`/api/comments/${commentId}`, {
-        method: "PATCH",
-        body: formData
-    });
 
-    if(res.ok) {
-        const edittedComment = await res.json();
-        dispatch(editComment(edittedComment));
-        return edittedComment
-    }
-}
-
-export const deleteCommentThunk = (postId, commentId) => async (dispatch) => {
-    const res = await fetch(`/api/comments/${commentId}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json"}
-    })
-
-    if (res.ok) {
-        dispatch(deleteComment([postId, commentId]))
-    }
-}
 
 // Reducer
 
@@ -187,26 +153,11 @@ export default function reducer(state = initialState, action) {
             delete newState[action.data];
             return newState
         }
-        case ADD_COMMENT_TO_POST: {
-            const newState = { ...state };
-            newState[action.data.post_id].post_comments.push(action.data);
-            return newState;
-        }
-        case EDIT_COMMENT_ON_POST: {
-            const newState = { ...state };
-            const postComments = newState[action.data.post_id].post_comments
-            const commentIndex = postComments.findIndex((comment) => comment.id === action.data.id);
-            postComments[commentIndex] = action.data;
-            return newState;
-        }
-        case DELETE_COMMENT_ON_POST: {
-            const [postId, commentId] = action.data;
-            const newState = { ...state }
-            const postComments = newState[postId].post_comments;
-            const commentIndex = postComments.findIndex((comment) => comment.id === commentId);
-            postComments.splice(commentIndex, 1);
-            return newState;
-        }
+        // case ADD_COMMENT_TO_POST: {
+        //     const newState = { ...state };
+        //     newState[action.data.post_id].post_comments.push(action.data);
+        //     return newState;
+        // }
         default: {
             return state;
         }
