@@ -1,17 +1,18 @@
 import { useDispatch} from "react-redux";
-import { deleteCommentThunk, getAllPostsThunk } from "../../store/posts";
+import {  getAllPostsThunk } from "../../store/posts";
 import EditCommentModal from "../EditCommentModal";
 import OpenModalButton from "../OpenModalButton";
 import './postComments.css'
 import { useEffect } from "react";
+import { getUsersThunk } from "../../store/session";
+import { deleteCommentThunk } from "../../store/comments";
 
-
-export default function PostComments ({ comment, post, sessionUser }) {
+export default function PostComments ({ comment, post, sessionUser, users }) {
     const dispatch = useDispatch();
     const commentDate = new Date(comment?.created_date)
     const currentDate = new Date()
     const timeDifference = Math.floor(( currentDate - commentDate ) / 1000)
-
+    const user = users?.find(user => user?.id === comment?.user_id)
 
 
     let timeAgo = "";
@@ -39,7 +40,7 @@ export default function PostComments ({ comment, post, sessionUser }) {
             <div id='post-comment'>
                 <div id='comment-username-date'>
                     <div id='comment-username'>
-                        {comment?.user?.username}
+                        {user?.username}
                     </div>
                     <div>
                     • {timeAgo}
@@ -64,7 +65,7 @@ export default function PostComments ({ comment, post, sessionUser }) {
                     {sessionUser && sessionUser?.id === comment?.user_id &&
                     <button
                         onClick={() => {
-                            dispatch(deleteCommentThunk(post.id, comment.id));
+                            dispatch(deleteCommentThunk(comment.id));
                         }}
                     >
                         Delete

@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllPostsThunk } from "../../store/posts";
 import { Link } from "react-router-dom";
 import PostCard from "../PostCard";
-import { getUserCommentsThunk } from "../../store/comments";
 import { getAllTagsThunk } from "../../store/tags";
 import TagCard from "./TagCard";
 import './LandingPage.css'
+import { getCommentsThunk } from "../../store/comments";
 
 export default function Landing() {
     const dispatch = useDispatch();
@@ -27,7 +27,7 @@ export default function Landing() {
         if (!Object.values(postsData).length || !Object.values(tagsData).length) {
           async function fetchData() {
             await dispatch(getAllPostsThunk());
-            await dispatch(getUserCommentsThunk());
+            await dispatch(getCommentsThunk());
             await dispatch(getAllTagsThunk());
           }
           fetchData();

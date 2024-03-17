@@ -10,17 +10,10 @@ from app.api.aws_helper import (
 comments = Blueprint("comments", __name__)
 
 @comments.route("/")
-@login_required
-def getAllUserComments():
-    allUserComments = Comment.query.filter(Comment.user_id == current_user.id)
-    userComments = [comment.to_dict() for comment in allUserComments]
-    return userComments
-
-# @comments.route("/<int:commentId>")
-# def getSpecificComment(commentId):
-#     singleComment = db.session.query(Comment).options(joinedload(Comment.user)).get(commentId)
-#     print('-------------------------------------------', singleComment.user)
-#     return {"whatever": "fdfasdasd"}
+def getAllComments():
+    allComments = Comment.query.all()
+    comments = [comment.to_dict() for comment in allComments]
+    return comments
 
 @comments.route("/new", methods=["POST"])
 @login_required
