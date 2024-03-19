@@ -32,7 +32,6 @@ def get_all_posts():
 
 @posts.route('/<postId>/likes')
 def get_all_post_likes(postId):
-    print('in backend', postId)
     post = Post.query.get(postId)
     # print('-----------------------------------------', post.id)
     postLikes = Like.query.filter(Like.post_id == post.id).all()

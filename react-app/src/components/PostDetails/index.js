@@ -22,10 +22,7 @@ export default function PostDetails() {
     id = parseInt(id);
     const sessionUser = useSelector((store) => store.session.user);
     const users = useSelector((store) => store.session.users);
-    // const users = Object.values(usersData)
-    console.log(users)
     const postsData = useSelector((store) => store.posts);
-    console.log('postsData', postsData)
     const posts = Object.values(postsData)
     const publicPosts = posts.filter(post => post.hidden === false)
     const post = postsData[id];
@@ -117,7 +114,6 @@ export default function PostDetails() {
 
         if (sessionUser) {
           userVote2 = postLikes.filter((like) => like.user_id === sessionUser.id);
-        //   console.log('userVote', userVote);
         }
 
         if (userVote2.length > 0) {
@@ -141,7 +137,6 @@ export default function PostDetails() {
 
         if (sessionUser) {
           userVote2 = postLikes.filter((like) => like.user_id === sessionUser.id);
-        //   console.log('userVote', userVote);
         }
 
         if (userVote2.length > 0) {
@@ -174,7 +169,6 @@ export default function PostDetails() {
         // Update voteStatus when postLikes change
         if (sessionUser) {
             userVote = postLikes.filter(like => like.user_id === sessionUser.id)
-            // console.log('user', userVote[0]?.vote)
             if (userVote) {
               if(userVote[0]?.vote === 1){
                 setUpVoteStatus("upvote")
