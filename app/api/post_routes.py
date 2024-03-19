@@ -30,8 +30,9 @@ def get_all_posts():
 
     return jsonify(post_dicts)
 
-@posts.route('/<int:postId>/likes')
+@posts.route('/<postId>/likes')
 def get_all_post_likes(postId):
+    print('in backend', postId)
     post = Post.query.get(postId)
     # print('-----------------------------------------', post.id)
     postLikes = Like.query.filter(Like.post_id == post.id).all()
