@@ -12,8 +12,7 @@ export default function PostComments ({ comment, post, sessionUser, users }) {
     const commentDate = new Date(comment?.created_date)
     const currentDate = new Date()
     const timeDifference = Math.floor(( currentDate - commentDate ) / 1000)
-    const user = users != null ? users?.find(user => user?.id === comment?.user_id) : null
-    console.log('in postcomments', users)
+    const user = users?.find(user => user?.id === comment?.user_id)
 
     let timeAgo = "";
     if(timeDifference < 60) {
@@ -40,7 +39,7 @@ export default function PostComments ({ comment, post, sessionUser, users }) {
             <div id='post-comment'>
                 <div id='comment-username-date'>
                     <div id='comment-username'>
-                        {user != null ? user?.username : ""}
+                        {user?.username}
                     </div>
                     <div>
                     • {timeAgo}
