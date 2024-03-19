@@ -34,6 +34,7 @@ export const authenticate = () => async (dispatch) => {
 };
 
 export const getUsersThunk = () => async (dispatch) => {
+
 	const response = await fetch("/api/auth/users", {
 		headers: {
 			"Content-Type": "application/json",
@@ -42,6 +43,7 @@ export const getUsersThunk = () => async (dispatch) => {
 
 	if(response.ok) {
 		const data = await response.json();
+		console.log('data', data)
 		if(data.errors){
 			return;
 		}

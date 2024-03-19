@@ -21,9 +21,9 @@ export default function PostDetails() {
     let { id } = useParams();
     id = parseInt(id);
     const sessionUser = useSelector((store) => store.session.user);
-    // const users = useSelector((store) => store.session.users);
+    const users = useSelector((store) => store.session.users);
     // const users = Object.values(usersData)
-    // console.log(users)
+    console.log(users)
     const postsData = useSelector((store) => store.posts);
     const posts = Object.values(postsData)
     const publicPosts = posts.filter(post => post.hidden === false)
@@ -87,7 +87,7 @@ export default function PostDetails() {
         dispatch(getCommentsThunk());
         dispatch(getAllPostsThunk());
         dispatch(getAllUserFavs());
-        // dispatch(getUsersThunk());
+        dispatch(getUsersThunk());
       }, [dispatch]);
 
 
@@ -278,7 +278,7 @@ export default function PostDetails() {
                     <hr id='comments-hr'/>
                     <div id='post-comments-container'>
                         {comments.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((comment) => (
-                            <PostComments comment={comment} post={post} sessionUser={sessionUser} />
+                            <PostComments comment={comment} post={post} sessionUser={sessionUser} users={users}/>
                         ))}
                     </div>
                 </div>
