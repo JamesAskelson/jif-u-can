@@ -26,7 +26,6 @@ const deleteLike = (like) => ({
 //Thunks
 
 export const getAllPostLikesThunk = (postId) => async (dispatch) => {
-    console.log('store postId', postId)
     const res = await fetch(`/api/posts/${postId}/likes`);
 
     if(res.ok) {
