@@ -84,11 +84,11 @@ export default function PostDetails() {
     // }, [dispatch]);
 
     useEffect(() => {
+        dispatch(getUsersThunk());
         dispatch(getCommentsThunk());
         dispatch(getAllPostsThunk());
         dispatch(getAllUserFavs());
-        dispatch(getUsersThunk());
-      }, [dispatch]);
+      }, []);
 
 
     async function handleFav(e) {
