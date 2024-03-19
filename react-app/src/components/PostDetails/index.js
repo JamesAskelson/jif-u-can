@@ -22,6 +22,7 @@ export default function PostDetails() {
     id = parseInt(id);
     const sessionUser = useSelector((store) => store.session.user);
     const users = useSelector((store) => store.session.users);
+    console.log(users)
     const postsData = useSelector((store) => store.posts);
     const posts = Object.values(postsData)
     const publicPosts = posts.filter(post => post.hidden === false)
@@ -70,6 +71,15 @@ export default function PostDetails() {
             top: 0
         });
     }
+
+    // useEffect(() => {
+    //     if (!Object.values(users).length) {
+    //         async function fetchData() {
+    //             await dispatch(getUsersThunk());
+    //         }
+    //         fetchData();
+    //     }
+    // }, [dispatch]);
 
     useEffect(() => {
         dispatch(getCommentsThunk());

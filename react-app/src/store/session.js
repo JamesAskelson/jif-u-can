@@ -36,7 +36,7 @@ export const authenticate = () => async (dispatch) => {
 };
 
 export const getUsersThunk = () => async (dispatch) => {
-	const response = await fetch("/api/auth/users", {
+	const response = await fetch("/api/users", {
 		headers: {
 			"Content-Type": "application/json",
 		},
