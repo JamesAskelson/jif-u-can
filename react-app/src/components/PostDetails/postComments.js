@@ -1,4 +1,4 @@
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import {  getAllPostsThunk } from "../../store/posts";
 import EditCommentModal from "../EditCommentModal";
 import OpenModalButton from "../OpenModalButton";
@@ -7,11 +7,12 @@ import { useEffect } from "react";
 import { getUsersThunk } from "../../store/session";
 import { deleteCommentThunk } from "../../store/comments";
 
-export default function PostComments ({ comment, post, sessionUser, users }) {
+export default function PostComments ({ comment, post, sessionUser}) {
     const dispatch = useDispatch();
     const commentDate = new Date(comment?.created_date)
     const currentDate = new Date()
     const timeDifference = Math.floor(( currentDate - commentDate ) / 1000)
+    const users = useSelector((store) => store.session.users);
     const user = users?.find(user => user?.id === comment?.user_id)
 
 
@@ -34,6 +35,10 @@ export default function PostComments ({ comment, post, sessionUser, users }) {
         const years = Math.floor(timeDifference / 31536000);
         timeAgo = `${years} ${years === 1 ? "year" : "years"} ago`;
     }
+
+    useEffect(() => {
+        dispatch(getUsersThunk());
+      }, [dispatch]);
 
     return (
         <div>

@@ -21,9 +21,7 @@ const initialState = { users: {}, user: null };
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
-		headers: {
-			"Content-Type": "application/json",
-		},
+
 	});
 	if (response.ok) {
 		const data = await response.json();
@@ -36,7 +34,7 @@ export const authenticate = () => async (dispatch) => {
 };
 
 export const getUsersThunk = () => async (dispatch) => {
-	const response = await fetch("/api/users", {
+	const response = await fetch("/api/auth/users", {
 		headers: {
 			"Content-Type": "application/json",
 		},
