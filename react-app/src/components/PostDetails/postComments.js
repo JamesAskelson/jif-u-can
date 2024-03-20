@@ -34,6 +34,8 @@ export default function PostComments ({ comment, post, sessionUser, users }) {
         timeAgo = `${years} ${years === 1 ? "year" : "years"} ago`;
     }
 
+    
+
     return (
         <div>
             <div id='post-comment'>
