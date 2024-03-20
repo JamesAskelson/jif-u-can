@@ -15,7 +15,6 @@ export default function Landing() {
     const tags = Object.values(tagsData)
     const posts = Object.values(postsData)
     const publicPosts = posts.filter(post => post.hidden === false)
-
     const goToTop = () => {
         window.scrollTo({
             top: 0
@@ -24,15 +23,12 @@ export default function Landing() {
 
     useEffect(() => {
         // MEGATHUNKADONK
-        if (!Object.values(postsData).length || !Object.values(tagsData).length) {
-          async function fetchData() {
-            await dispatch(getAllPostsThunk());
-            await dispatch(getCommentsThunk());
-            await dispatch(getAllTagsThunk());
-          }
-          fetchData();
-        }
-      }, [dispatch]);
+
+           dispatch(getAllPostsThunk());
+           dispatch(getCommentsThunk());
+           dispatch(getAllTagsThunk());
+
+      }, []);
 
     return (
         <div id='landing-page-container'>

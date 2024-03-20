@@ -13,7 +13,7 @@ export default function PostCard({ post }) {
     const [upVoteStatus, setUpVoteStatus] = useState(null);
     const [downVoteStatus, setDownVoteStatus] = useState(null);
     let userVote = []
-
+    
 
     async function handleLike(e) {
         e.preventDefault();
