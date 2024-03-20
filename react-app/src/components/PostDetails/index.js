@@ -82,6 +82,12 @@ export default function PostDetails() {
     // }, [dispatch]);
 
     useEffect(() => {
+        if (!users) {
+            dispatch(getUsersThunk());
+            }
+        }, [users]);
+
+    useEffect(() => {
         dispatch(getUsersThunk());
         dispatch(getCommentsThunk());
         dispatch(getAllPostsThunk());
@@ -89,6 +95,8 @@ export default function PostDetails() {
             dispatch(getAllUserFavs());
         }
       }, []);
+
+
 
 
     async function handleFav(e) {
@@ -270,11 +278,13 @@ export default function PostDetails() {
                         {comments?.length} Comments
                     </div>
                     <hr id='comments-hr'/>
-                    {users && <div id='post-comments-container'>
-                        {comments.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((comment) => (
-                            <PostComments comment={comment} post={post} sessionUser={sessionUser} users={users}/>
-                        ))}
-                    </div>}
+                    {users && (
+                        <div id='post-comments-container'>
+                            {comments.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((comment) => (
+                                <PostComments comment={comment} post={post} sessionUser={sessionUser} users={users}/>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
             <div id='explore-posts-text'>
