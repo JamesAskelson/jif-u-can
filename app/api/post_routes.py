@@ -30,7 +30,7 @@ def get_all_posts():
 
     return jsonify(post_dicts)
 
-@posts.route('/<int:postId>/likes')
+@posts.route('/<postId>/likes')
 def get_all_post_likes(postId):
     post = Post.query.get(postId)
     # print('-----------------------------------------', post.id)

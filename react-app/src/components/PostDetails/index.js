@@ -22,8 +22,6 @@ export default function PostDetails() {
     id = parseInt(id);
     const sessionUser = useSelector((store) => store.session.user);
     const users = useSelector((store) => store.session.users);
-    // const users = Object.values(usersData)
-    console.log(users)
     const postsData = useSelector((store) => store.posts);
     const posts = Object.values(postsData)
     const publicPosts = posts.filter(post => post.hidden === false)
@@ -87,7 +85,9 @@ export default function PostDetails() {
         dispatch(getUsersThunk());
         dispatch(getCommentsThunk());
         dispatch(getAllPostsThunk());
-        dispatch(getAllUserFavs());
+        if(sessionUser){
+            dispatch(getAllUserFavs());
+        }
       }, []);
 
 
@@ -114,7 +114,6 @@ export default function PostDetails() {
 
         if (sessionUser) {
           userVote2 = postLikes.filter((like) => like.user_id === sessionUser.id);
-        //   console.log('userVote', userVote);
         }
 
         if (userVote2.length > 0) {
@@ -138,7 +137,6 @@ export default function PostDetails() {
 
         if (sessionUser) {
           userVote2 = postLikes.filter((like) => like.user_id === sessionUser.id);
-        //   console.log('userVote', userVote);
         }
 
         if (userVote2.length > 0) {
@@ -162,19 +160,15 @@ export default function PostDetails() {
     const totalVotes = calTotalVotes(postLikes)
 
     useEffect(() => {
-        if (!Object.values(likesData).length) {
-            async function fetchData() {
-                await dispatch(getAllPostLikesThunk(post?.id));
-            }
-            fetchData();
+        if (!Object.values(likesData).length && Object.values(postsData).length > 0) {
+            dispatch(getAllPostLikesThunk(postsData[id].id));
         }
-    }, [dispatch]);
+    }, [postsData]);
 
     useEffect(() => {
         // Update voteStatus when postLikes change
         if (sessionUser) {
             userVote = postLikes.filter(like => like.user_id === sessionUser.id)
-            // console.log('user', userVote[0]?.vote)
             if (userVote) {
               if(userVote[0]?.vote === 1){
                 setUpVoteStatus("upvote")
@@ -191,12 +185,12 @@ export default function PostDetails() {
       }, [dispatch, likesData, post?.id, postLikes, sessionUser]);
 
     useEffect(() => {
-        if(userPostFav.length > 0) {
+        if(userPostFav.length > 0 && sessionUser) {
             setFavStatus("faved")
         } else {
             setFavStatus(null)
         }
-    }, [dispatch, userFavs, post?.id, sessionUser])
+    }, [dispatch, userFavs, sessionUser])
 
 
     if (!post) return <></>;
@@ -212,7 +206,7 @@ export default function PostDetails() {
             <div id='post-details-votes-container'>
                 <div id='post-details-votes'>
                     <button className={`vote-button ${upVoteStatus === 'upvote' ? 'upvoted' : ''}`} onClick={handleLike} disabled={!sessionUser}>
-                            <i class="fa fa-solid fa-arrow-up"></i>
+                            <i className="fa fa-solid fa-arrow-up"></i>
                     </button>
                     <span id='post-total-votes'>{totalVotes}</span>
                     <button className={`vote-button ${downVoteStatus === 'downvote' ? 'downvoted' : ''}`} onClick={handleDislike} disabled={!sessionUser}>
@@ -220,7 +214,7 @@ export default function PostDetails() {
                             <i class="fa fa-solid fa-arrow-down"></i>
                     </button>
                     <button className={`vote-button ${favStatus === 'faved' ? 'faved' : ''}`} onClick={handleFav} disabled={!sessionUser}>
-                        <i class="fa fa-solid fa-heart"></i>
+                        <i className="fa fa-solid fa-heart"></i>
                     </button>
                 </div>
             </div>
