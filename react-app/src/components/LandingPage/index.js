@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllPostsThunk } from "../../store/posts";
 import { Link } from "react-router-dom";
@@ -10,6 +10,8 @@ import { getCommentsThunk } from "../../store/comments";
 
 export default function Landing() {
     const dispatch = useDispatch();
+    const [search, setSearch] = useState('')
+    const [filteredPosts, setFilteredPosts] = useState([]);
     const postsData = useSelector((store) => store.posts)
     const tagsData = useSelector((store) => store.tags)
     const tags = Object.values(tagsData)
@@ -21,17 +23,45 @@ export default function Landing() {
         });
     }
 
+    const handleSearchChange = (e) => {
+        e.preventDefault();
+        setSearch(e.target.value);
+    };
+
+    const handleFilterPosts = (e) => {
+        e.preventDefault();
+        const filtered = publicPosts.filter((post) => post.title.toLowerCase().includes(search.toLowerCase()));
+        setFilteredPosts(filtered.length > 0 ? filtered : []);
+    };
+
     useEffect(() => {
-        // MEGATHUNKADONK
+        if(filteredPosts.length < 1 && search.trim() === ''){
+            setFilteredPosts(publicPosts);
+        }
+        if(filteredPosts.length < 1 && search.length === 0){
+            setFilteredPosts(publicPosts);
+        }
+    }, [publicPosts]);
 
-           dispatch(getAllPostsThunk());
-           dispatch(getCommentsThunk());
-           dispatch(getAllTagsThunk());
+    useEffect(() => {
+        dispatch(getAllPostsThunk());
+        dispatch(getCommentsThunk());
+        dispatch(getAllTagsThunk());
+    }, [dispatch]);
 
-      }, []);
 
     return (
         <div id='landing-page-container'>
+            <div id='search-bar-container'>
+                <input
+                    placeholder="Search"
+                    value={search}
+                    onChange={handleSearchChange}
+                />
+                <button onClick={handleFilterPosts}>
+
+                </button>
+            </div>
             <div id='tag-search-container'>
                 <div id='explore-tags-text'>
                     <h3>
@@ -52,7 +82,7 @@ export default function Landing() {
                 </div> */}
             </div>
             <div id='posts-container'>
-                {publicPosts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
+                {filteredPosts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
                     <Link onClick={goToTop} to={`/posts/${post.id}`} title={post.title}>
                         <PostCard post={post} key={post.id} />
                     </Link>
