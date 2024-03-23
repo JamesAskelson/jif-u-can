@@ -11,9 +11,14 @@ comments = Blueprint("comments", __name__)
 
 @comments.route("/")
 def getAllComments():
-    allComments = Comment.query.all()
-    comments = [comment.to_dict() for comment in allComments]
-    return comments
+    allComments = Comment.query.options(joinedload(Comment.user)).all()
+
+    comm_dicts = []
+    for comment in allComments:
+        comm_dict = comment.to_dict()
+        comm_dict['user'] = comment.user.to_dict()
+        comm_dicts.append(comm_dict)
+    return jsonify(comm_dicts)
 
 @comments.route("/new", methods=["POST"])
 @login_required

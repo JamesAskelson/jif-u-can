@@ -43,7 +43,6 @@ export const getUsersThunk = () => async (dispatch) => {
 
 	if(response.ok) {
 		const data = await response.json();
-		console.log('data', data)
 		if(data.errors){
 			return;
 		}

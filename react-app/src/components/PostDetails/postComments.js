@@ -12,8 +12,7 @@ export default function PostComments ({ comment, post, sessionUser, users }) {
     const commentDate = new Date(comment?.created_date)
     const currentDate = new Date()
     const timeDifference = Math.floor(( currentDate - commentDate ) / 1000)
-    const user = users?.find(user => user?.id === comment?.user_id)
-
+    
     let timeAgo = "";
     if(timeDifference < 60) {
         timeAgo = 'Just now'
@@ -34,14 +33,14 @@ export default function PostComments ({ comment, post, sessionUser, users }) {
         timeAgo = `${years} ${years === 1 ? "year" : "years"} ago`;
     }
 
-    
+
 
     return (
         <div>
             <div id='post-comment'>
                 <div id='comment-username-date'>
                     <div id='comment-username'>
-                        {user?.username}
+                        {comment.user.username}
                     </div>
                     <div>
                     • {timeAgo}
