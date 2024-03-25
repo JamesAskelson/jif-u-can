@@ -3,7 +3,7 @@
   position: sticky;
   top: 0px;
   border-bottom: 2px solid rgb(34, 0, 34);
-  z-index: 1000;
+  z-index: 900;
 }
 
 #home-img-container>img{
