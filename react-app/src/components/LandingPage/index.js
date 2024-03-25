@@ -35,6 +35,9 @@ export default function Landing() {
     };
 
     useEffect(() => {
+        if(filteredPosts.length < 1){
+            setFilteredPosts(publicPosts)
+        }
         if(filteredPosts.length < 1 && search.trim() === ''){
             setFilteredPosts(publicPosts);
         }
@@ -52,14 +55,16 @@ export default function Landing() {
 
     return (
         <div id='landing-page-container'>
-            <div id='search-bar-container'>
+            <div id='search-bar'>
                 <input
-                    placeholder="Search"
+                    placeholder="Search for what YOU want!"
                     value={search}
                     onChange={handleSearchChange}
                 />
                 <button onClick={handleFilterPosts}>
-
+                    <img
+                        src='https://s.imgur.com/desktop-assets/desktop-assets/icon-search.3bca12abe700ae5ca910.svg'
+                    />
                 </button>
             </div>
             <div id='tag-search-container'>
