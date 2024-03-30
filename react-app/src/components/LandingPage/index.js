@@ -46,6 +46,12 @@ export default function Landing() {
         }
     }, [publicPosts]);
 
+    const handlePostsReset = (e) => {
+        e.preventDefault()
+        setSearch('');
+        setFilteredPosts(publicPosts)
+    }
+
     useEffect(() => {
         dispatch(getAllPostsThunk());
         dispatch(getCommentsThunk());
@@ -55,18 +61,24 @@ export default function Landing() {
 
     return (
         <div id='landing-page-container'>
-            <div id='search-bar'>
-                <input
-                    placeholder="Search for what YOU want!"
-                    value={search}
-                    onChange={handleSearchChange}
-                />
-                <button onClick={handleFilterPosts}>
-                    <img
-                        src='https://s.imgur.com/desktop-assets/desktop-assets/icon-search.3bca12abe700ae5ca910.svg'
+                <div id='search-bar'>
+                    <input
+                        placeholder="Search for what YOU want!"
+                        value={search}
+                        onChange={handleSearchChange}
                     />
-                </button>
-            </div>
+                    <button onClick={handleFilterPosts}>
+                        <img
+                            src='https://s.imgur.com/desktop-assets/desktop-assets/icon-search.3bca12abe700ae5ca910.svg'
+                        />
+                    </button>
+                </div>
+                <div id='reset-button'>
+                    <button onClick={handlePostsReset}>
+                        Reset
+                    </button>
+                </div>
+
             <div id='tag-search-container'>
                 <div id='explore-tags-text'>
                     <h3>
