@@ -12,6 +12,8 @@ export default function Landing() {
     const dispatch = useDispatch();
     const [search, setSearch] = useState('')
     const [filteredPosts, setFilteredPosts] = useState([]);
+    const [searchBool, setSearchBool] = useState(false);
+    const [searchText, setSearchText] = useState('')
     const postsData = useSelector((store) => store.posts)
     const tagsData = useSelector((store) => store.tags)
     const tags = Object.values(tagsData)
@@ -32,12 +34,28 @@ export default function Landing() {
         e.preventDefault();
         const filtered = publicPosts.filter((post) => post.title.toLowerCase().includes(search.toLowerCase()));
         setFilteredPosts(filtered.length > 0 ? filtered : []);
+        if(search.length == 0){
+            setSearchBool(false)
+        } else {
+            setSearchBool(true)
+        }
     };
 
     useEffect(() => {
-        if(filteredPosts.length < 1){
-            setFilteredPosts(publicPosts)
+        console.log(filteredPosts)
+        if (filteredPosts.length > 0) {
+            setSearchText(`Your search for "${search}" came up with ${filteredPosts.length} results`);
+        } else if(filteredPosts.length == 0 && search !== '') {
+            setSearchText('Your search came up with 0 results.');
+        } else {
+            setSearchBool(false)
         }
+    }, [filteredPosts]);
+
+    useEffect(() => {
+        // if(filteredPosts.length < 1){
+        //     setFilteredPosts(publicPosts)
+        // }
         if(filteredPosts.length < 1 && search.trim() === ''){
             setFilteredPosts(publicPosts);
         }
@@ -49,6 +67,8 @@ export default function Landing() {
     const handlePostsReset = (e) => {
         e.preventDefault()
         setSearch('');
+        setSearchText('');
+        setSearchBool(false);
         setFilteredPosts(publicPosts)
     }
 
@@ -90,13 +110,11 @@ export default function Landing() {
                         <TagCard id='tag-card-css' tag={ tag } key={ tag.id } />
                     ))}
                 </div>
-                {/* <div id='search-bar-container'>
-                    <div id='search-bar'>
-                        <input
-                        placeholder="Search"
-                        ></input>
-                    </div>
-                </div> */}
+            </div>
+            <div id='search-res-txt'>
+                <h2>
+                    {searchBool && searchText}
+                </h2>
             </div>
             <div id='posts-container'>
                 {filteredPosts?.sort((a, b) => new Date(b.created_date).getTime() - new Date(a.created_date).getTime()).map((post) => (
