@@ -46,8 +46,6 @@ A clone of Imgur, an image/gif hosting site, that lets users look thru a variety
 ![](https://i.imgur.com/1lxJZRh.png)
 ## Roadmap
 
-- Adding aws to post crud
-- Adding search bar
 
 ## Endpoints
 
