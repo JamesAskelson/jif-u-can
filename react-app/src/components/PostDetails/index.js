@@ -211,21 +211,20 @@ export default function PostDetails() {
                 </h3>
             </div>
             <div id='post-details'>
-            <div id='post-details-votes-container'>
-                <div id='post-details-votes'>
-                    <button className={`vote-button ${upVoteStatus === 'upvote' ? 'upvoted' : ''}`} onClick={handleLike} disabled={!sessionUser}>
-                            <i className="fa fa-solid fa-arrow-up"></i>
-                    </button>
-                    <span id='post-total-votes'>{totalVotes}</span>
-                    <button className={`vote-button ${downVoteStatus === 'downvote' ? 'downvoted' : ''}`} onClick={handleDislike} disabled={!sessionUser}>
-
-                            <i class="fa fa-solid fa-arrow-down"></i>
-                    </button>
-                    <button className={`vote-button ${favStatus === 'faved' ? 'faved' : ''}`} onClick={handleFav} disabled={!sessionUser}>
-                        <i className="fa fa-solid fa-heart"></i>
-                    </button>
+                <div id='post-details-votes-container'>
+                    <div id='post-details-votes'>
+                        <button className={`vote-button ${upVoteStatus === 'upvote' ? 'upvoted' : ''}`} onClick={handleLike} disabled={!sessionUser}>
+                                <i className="fa fa-solid fa-arrow-up"></i>
+                        </button>
+                        <span id='post-total-votes'>{totalVotes}</span>
+                        <button className={`vote-button ${downVoteStatus === 'downvote' ? 'downvoted' : ''}`} onClick={handleDislike} disabled={!sessionUser}>
+                                <i class="fa fa-solid fa-arrow-down"></i>
+                        </button>
+                        <button className={`vote-button ${favStatus === 'faved' ? 'faved' : ''}`} onClick={handleFav} disabled={!sessionUser}>
+                            <i className="fa fa-solid fa-heart"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
                 <div id='post-details-main-container'>
                     <div id='post-details-title-user'>
                         <div id='post-details-title'>
