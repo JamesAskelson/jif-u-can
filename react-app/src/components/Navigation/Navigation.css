@@ -21,6 +21,13 @@
 }
 
 .profile-dropdown {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.profile-dropdownopen{
   padding: 0px;
   padding-top: 20px;
   background-color: rgb(71, 71, 71);
@@ -34,6 +41,8 @@
   height: 80%;
   overflow: hidden;
   justify-content: center;
+  opacity: 1;
+  visibility: visible;
 }
 
 #dropdown-buttons>div{
@@ -64,6 +73,7 @@
 
 #nav-links-right{
   display: flex;
+  margin-right: 1%;
 }
 
 #nav-links-left{
@@ -161,6 +171,7 @@
   height: 30px;
   display: flex;
   align-items: center;
+  justify-content: center;
   color: white;
   font-size: 16px;
   font-weight: bold;

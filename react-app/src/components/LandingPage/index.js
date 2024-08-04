@@ -43,7 +43,7 @@ export default function Landing() {
 
     useEffect(() => {
         console.log(filteredPosts)
-        if (filteredPosts.length > 0) {
+        if (filteredPosts.length > 0 && search.length != 0) {
             setSearchText(`Your search for "${search}" came up with ${filteredPosts.length} results`);
         } else if(filteredPosts.length == 0 && search !== '') {
             setSearchText('Your search came up with 0 results.');

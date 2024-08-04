@@ -38,14 +38,13 @@ function ProfileButton({ user }) {
     history.push("/")
   };
 
-  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  const ulClassName = "profile-dropdown" + (showMenu ? "open" : "");
   const closeMenu = () => setShowMenu(false);
 
   return (
     <>
-        <button className='profile-button' onClick={openMenu}>
+      <button className='profile-button' onClick={openMenu}>
         <i className="fas fa-solid fa-users fa-xl" />
-
       </button>
 
       <ul className={ulClassName} ref={ulRef}>
