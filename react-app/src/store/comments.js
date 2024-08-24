@@ -45,6 +45,9 @@ export const addCommentThunk = (formData) => async (dispatch) => {
         method: "POST",
         body: formData
     })
+
+    console.log('in store', res.body)
+
     if(res.ok) {
         const newComment = await res.json()
         dispatch(addComment(newComment))
@@ -57,6 +60,7 @@ export const editCommentThunk = (formData, commentId) => async (dispatch) => {
         method: "PATCH",
         body: formData
     });
+    console.log('in store', res.body)
 
     if(res.ok) {
         const edittedComment = await res.json();
