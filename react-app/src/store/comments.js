@@ -45,6 +45,7 @@ export const addCommentThunk = (formData) => async (dispatch) => {
         method: "POST",
         body: formData
     })
+
     if(res.ok) {
         const newComment = await res.json()
         dispatch(addComment(newComment))
